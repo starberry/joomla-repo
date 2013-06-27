@@ -26,6 +26,124 @@ $ -> Language fix or change
 - -> Removed
 ! -> Note
 
+-------------------- 2.5.7 Stable Release [13-September-2012] ------------------
+
+07-Sept-2012 Jean-Marie Simonet
+ # Missing toolbar image + typo in multilanguage status module
+
+06-Sept-2012 Jean-Marie Simonet
+ ^ Updating Joomla logo to display ® instead of TM
+
+04-Sept-2012 Jean-Marie Simonet
+ # [#24628] htmlspecialchars() and multiple menu modules of the same menu. Thanks Rouven
+ # [#27806] *User with spaces as password can not log in. Thanks Rouven
+ $ Updating th-TH installation ini file
+
+01-Sept-2012 Jean-Marie Simonet
+ # [#27933] Smart Search module does not read static filter setting from module parameters. Thanks Chris
+ # [#28405] Smart Search - CLI Indexer doesn't catch exceptions. Thanks Michael
+
+31-Aug-2012 Jean-Marie Simonet
+ +$ Adding Welsh cy-GB language Installation files
+
+29-Aug-2012 Jean-Marie Simonet
+ $ Updating installation language lt-LT, ca-ES
+ # [#28863] Custom sample data install issue with driver mysql. Thanks Mihaly and Michael
+
+28-Aug-2012 Jean-Marie Simonet
+ +$ Adding Indonesian id-ID language Installation files
+
+27-Aug-2012 Jean-Marie Simonet
+ # [#28858] Com_finder missing show_advanced_tips parameter => can't hide advanced tips. Thanks Michael
+
+26-Aug-2012 Jean-Marie Simonet
+ # [#28853] Template fails to copy. Thanks Mark
+ # [#28985] JFile class not loaded when use cache handler != file. Thanks Julio.
+
+24-Aug-2012 Jean-Marie Simonet
+ # [#28449] captcha cause fatal error when the "captcha" field is not present in "configuration.php" after an upgrade. Thanks Elin.
+
+21-Aug-2012 Jean-Marie Simonet
+ # [#28951] Increase stability in language installer. Thanks Javier
+
+14-Aug-2012 Jean-Marie Simonet
+ # Prevents non installable packs to display in Install Languages manager
+ # [#28039] Using Chrome for Android generates an error in browser.php (line 562)
+
+11-Aug-2012 Jean-Marie Simonet
+ $+ Adding Vietnamese vi-VN to installation languages
+
+11-Aug-2012 Jean-Marie Simonet
+ #+ [#25295] Email exposed through RSS and Atom feeds. Thanks Elin and Peter
+ # [#28795] mod_articles_category "read more" truncation not functioning properly. Thanks Elin.
+
+10-Aug-2012 Jean-Marie Simonet
+ # [#28855] Fix Array to string conversion notices (PHP 5.4 only).Thanks Rouven
+ 
+09-Aug-2012 Mark Dexter
+ # [#25663] "Can't build admin menu item" error while (re)installing component. Thanks Nicholas.
+
+07-Aug-2012 Jean-Marie Simonet
+ + [#28896] Installing Language packs from Extension Manager in 2.5.x. Thanks Javier
+
+31-Jul-2012 Jean-Marie Simonet
+ [#28877] Overriding settings in the language xx-XX.localise.php
+ 
+25-Jul-2012 Jean-Marie Simonet
+ [#28846] *When URL Language Code is removed, language switcher module redirects to URL without .html suffix. Thanks Dennis
+
+18-Jul-2012 Jean-Marie Simonet
+ # [#28837] Can't get past step 4 "Database Configuration". Thanks Shaun.
+
+11-Jul-2012 Jean-Marie Simonet
+ # [#28535] Joomla 2.5.4 Timezones being doubled. Thanks Christophe and Andrea
+ # [#28034] White page on contact form with SEO enabled. Thanks Nikolai
+ # [#28743] Update TinyMCE to version 3.5.4.1. Thanks Rouven
+
+08-Jul-2012 Jean-Marie Simonet
+ # [#28510] DB error "session" table Duplicate entry. Thanks Rob
+ #^ [#28785] mod_wrapper doesn't support iframe without border. Thanks Andrea Sisti
+ 
+05-Jul-2012 Jean-Marie Simonet
+ # [#28770] Loss of data when editing an article through the front end. Thanks Franz
+
+04-Jul-2012 Jean-Marie Simonet
+ # [#28779] *JS error in page 6 of installation. Thanks Michael
+
+03-Jul-2012 Jean-Marie Simonet
+ # [#28741] E_STRICT: JArrayHelper::pivot should be declared as static. Thanks Christophe.
+ ^ [#28776] Replace DS with DIRECTORY_SEPARATOR in com_media. Thanks Michael
+
+30-Jun-2012 Mark Dexter
+ # [#28763] Make the field for installing sample data easier to use (Elin Waring)
+ # [#28751] *Copy Template Feature - language files have capital letters (Jean-Marie Simonet)
+ # [#28647] Registration form: language override for "Name" label causes side effects (Johannnes S-F)
+ # [#28759] Undefined property: JSite::$registeredurlparams (Rouven Weßling) 
+
+29-Jun-2012 Jean-Marie Simonet
+ # [#28713] Article Media Manager: 'This file is too large to upload' appears in a Media Manager screen
+ # [#28733] administrator/mod_menu Bug! Thanks Sebastian
+
+26-Jun-2012 Jean-Marie Simonet
+ # [#28745] mailto fatal error when sending article-mail in joomla 2.5.6. Thanks Rouven.
+ # [#28682] "Articles" appearing in title. Thanks Christophe
+ 
+26-Jun-2012 Christophe Demko
+ ^ [#28730] Use the MVC legacy aliases in the administrator (Rouven Weßling)
+
+25-Jun-2012 Christophe Demko
+ ^ [#28683] Replace uses of JHtml::core() (Michael Babker)
+ ^ [#28736] Don't use APIs not present in Platform 12.2 (Rouven Weßling)
+ # [#28690] Wrong Content Type for JSON response (Elijah Madden)
+ + [#28651] Security concern: passwords should not be sent via email (Johannes S-F)
+ + [#28738] Add more sniffs to the code style checker (Rouven Weßling)
+
+22-Jun-2012 Jean-Marie Simonet
+ # [#28709] Commit of progress bar feature missed a layout file. Thanks Mark
+
+20-Jun-2012 Jean-Marie Simonet
+ ^ Disable install checks for development
+
 -------------------- 2.5.6 Stable Release [19-June-2012] ------------------
 
 19-Jun-2012 Mark Dexter
