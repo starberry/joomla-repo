@@ -26,6 +26,40 @@ $ -> Language fix or change
 - -> Removed
 ! -> Note
 
+-------------------- 2.5.8 Stable Release [8-November-2012] ------------------
+
+29-Oct-2012 Jean-Marie Simonet
+ # [#29575] Article Manager excludes identity of author
+
+28-Oct-2012 Jean-Marie Simonet
+ +$ Adding Kiswahili installation lang sw-KE
+
+27-Oct-2012 Jean-Marie Simonet
+ # [#29574] Backport JAccess fixes from platform. Thanks Elin
+ + Adding Kiswahili (East African Kiswahili Commission) flag
+
+18-Oct-2012 Jean-Marie Simonet
+ # [#29401] Repeated htmlspecialchars() Applied When Multiple Breadcrumbs Active. Thanks Peter and Roland
+
+17-Oct-2012 Jean-Marie Simonet
+ # [#29264] Field "alias" disappears in menu manager with type "External URL". Thanks Roberto
+
+12-Oct-2012 Jean-Marie Simonet
+ # [#29488] Missing JText In Language Installer
+ 
+09-Oct-2012 Jean-Marie Simonet
+ # [#29463] Notice in language manager when FTP layer is enabled.
+ $ Correcting mn-MN installation ini
+
+08-Oct-2012 Jean-Marie Simonet
+ # [#28764] user notes category is not properly nested in the assets table [2.5]. Thanks Peter
+
+04-Oct-2012 Jean-Marie Simonet
+ # [#28849] Publishing date instead of creation date in com_content/category/view.feed.php. Thanks Tobias Ribizel.
+
+01-Oct-2012 Jean-Marie Simonet
+ # [#28297] com_banners: BannersModelClients SQL error (group by banner id). Thanks Nils
+
 -------------------- 2.5.7 Stable Release [13-September-2012] ------------------
 
 07-Sept-2012 Jean-Marie Simonet
