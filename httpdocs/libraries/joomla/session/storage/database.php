@@ -3,7 +3,7 @@
  * @package     Joomla.Platform
  * @subpackage  Session
  *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE
  */
 
@@ -32,10 +32,6 @@ class JSessionStorageDatabase extends JSessionStorage
 	{
 		// Get the database connection object and verify its connected.
 		$db = JFactory::getDbo();
-		if (!$db->connected())
-		{
-			return false;
-		}
 
 		try
 		{
@@ -47,7 +43,11 @@ class JSessionStorageDatabase extends JSessionStorage
 
 			$db->setQuery($query);
 
-			return (string) $db->loadResult();
+			$result = (string) $db->loadResult();
+
+			$result = str_replace('\0\0\0', chr(0) . '*' . chr(0), $result);
+
+			return $result;
 		}
 		catch (Exception $e)
 		{
@@ -69,10 +69,8 @@ class JSessionStorageDatabase extends JSessionStorage
 	{
 		// Get the database connection object and verify its connected.
 		$db = JFactory::getDbo();
-		if (!$db->connected())
-		{
-			return false;
-		}
+
+		$data = str_replace(chr(0) . '*' . chr(0), '\0\0\0', $data);
 
 		try
 		{
@@ -113,10 +111,6 @@ class JSessionStorageDatabase extends JSessionStorage
 	{
 		// Get the database connection object and verify its connected.
 		$db = JFactory::getDbo();
-		if (!$db->connected())
-		{
-			return false;
-		}
 
 		try
 		{
@@ -148,10 +142,6 @@ class JSessionStorageDatabase extends JSessionStorage
 	{
 		// Get the database connection object and verify its connected.
 		$db = JFactory::getDbo();
-		if (!$db->connected())
-		{
-			return false;
-		}
 
 		// Determine the timestamp threshold with which to purge old sessions.
 		$past = time() - $lifetime;

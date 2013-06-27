@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_media
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Media Manager Component Controller
  *
- * @package		Joomla.Administrator
- * @subpackage	com_media
- * @version 1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_media
+ * @since       1.5
  */
 class MediaController extends JControllerLegacy
 {
@@ -27,18 +30,18 @@ class MediaController extends JControllerLegacy
 	public function display($cachable = false, $urlparams = false)
 	{
 		JPluginHelper::importPlugin('content');
-		$vName = JRequest::getCmd('view', 'media');
+		$vName = $this->input->get('view', 'media');
 		switch ($vName)
 		{
 			case 'images':
-				$vLayout = JRequest::getCmd('layout', 'default');
+				$vLayout = $this->input->get('layout', 'default');
 				$mName = 'manager';
 
 				break;
 
 			case 'imagesList':
 				$mName = 'list';
-				$vLayout = JRequest::getCmd('layout', 'default');
+				$vLayout = $this->input->get('layout', 'default');
 
 				break;
 
@@ -52,16 +55,17 @@ class MediaController extends JControllerLegacy
 			case 'media':
 			default:
 				$vName = 'media';
-				$vLayout = JRequest::getCmd('layout', 'default');
+				$vLayout = $this->input->get('layout', 'default');
 				$mName = 'manager';
 				break;
 		}
 
 		$document = JFactory::getDocument();
-		$vType		= $document->getType();
+		$vType    = $document->getType();
 
 		// Get/Create the view
 		$view = $this->getView($vName, $vType);
+		$view->addTemplatePath(JPATH_COMPONENT_ADMINISTRATOR.'/views/'.strtolower($vName).'/tmpl');
 
 		// Get/Create the model
 		if ($model = $this->getModel($mName)) {
@@ -78,7 +82,7 @@ class MediaController extends JControllerLegacy
 		return $this;
 	}
 
-	function ftpValidate()
+	public function ftpValidate()
 	{
 		// Set FTP credentials, if given
 		JClientHelper::setCredentialsFromRequest('ftp');

@@ -1,13 +1,16 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_newsfeeds
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_newsfeeds
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
+JHtml::addIncludePath(JPATH_COMPONENT.'/helpers');
+
+JHtml::_('behavior.caption');
 
 $pageClass = $this->params->get('pageclass_sfx');
 ?>
@@ -38,7 +41,7 @@ $pageClass = $this->params->get('pageclass_sfx');
 
 <?php if (!empty($this->children[$this->category->id])&& $this->maxLevel != 0) : ?>
 <div class="cat-children">
-	<h3><?php echo JText::_('JGLOBAL_SUBCATEGORIES') ; ?></h3>
+	<h3><?php echo JText::_('JGLOBAL_SUBCATEGORIES'); ?></h3>
 	<?php echo $this->loadTemplate('children'); ?>
 </div>
 <?php endif; ?>

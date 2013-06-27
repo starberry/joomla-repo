@@ -3,8 +3,8 @@
  * @package     Joomla.Site
  * @subpackage  mod_finder
  *
- * @copyright   Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license     GNU General Public License version 2 or later; see LICENSE
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -40,11 +40,13 @@ class ModFinderHelper
 		foreach ($uri->getQuery(true) as $n => $v)
 		{
 			$fields .= '<input type="hidden" name="' . $n . '" value="' . $v . '" />';
-			if ($n == 'Itemid') {
+			if ($n == 'Itemid')
+			{
 				$needId = false;
 			}
 		}
-		if ($needId) {
+		if ($needId)
+		{
 			$fields .= '<input type="hidden" name="Itemid" value="' . JFactory::getApplication()->input->get('Itemid', '0', 'int') . '" />';
 		}
 		return $fields;

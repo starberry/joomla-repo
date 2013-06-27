@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_languages
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -11,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Languages Strings Model
  *
- * @package			Joomla.Administrator
- * @subpackage	com_languages
- * @since				2.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_languages
+ * @since       2.5
  */
 class LanguagesModelStrings extends JModelLegacy
 {
@@ -36,7 +37,7 @@ class LanguagesModelStrings extends JModelLegacy
 		try
 		{
 			$this->_db->setQuery('TRUNCATE TABLE '.$this->_db->qn('#__overrider'));
-			$this->_db->query();
+			$this->_db->execute();
 		}
 		catch (RuntimeException $e)
 		{
@@ -52,14 +53,14 @@ class LanguagesModelStrings extends JModelLegacy
 		$client		= $app->getUserState('com_languages.overrides.filter.client', 'site') ? 'administrator' : 'site';
 		$language	= $app->getUserState('com_languages.overrides.filter.language', 'en-GB');
 
-
 		$base = constant('JPATH_'.strtoupper($client));
-		$path = $base.'/language/' . $language;
+		$path = $base . '/language/' . $language;
 
 		$files = array();
 
 		// Parse common language directory
-		if(JFolder::exists($path))
+		jimport('joomla.filesystem.folder');
+		if (is_dir($path))
 		{
 			$files = JFolder::files($path, $language.'.*ini$', false, true);
 		}
@@ -85,16 +86,13 @@ class LanguagesModelStrings extends JModelLegacy
 				$query->clear('values');
 				foreach ($strings as $key => $string)
 				{
-					$query->values($this->_db->q($key).','.$this->_db->q($string).','.$this->_db->q(JPath::clean($file)));;
+					$query->values($this->_db->q($key).','.$this->_db->q($string).','.$this->_db->q(JPath::clean($file)));
 				}
 
 				try
 				{
 					$this->_db->setQuery($query);
-					if (!$this->_db->query())
-					{
-						return new Exception($this->_db->getErrorMsg());
-					}
+					$this->_db->execute();
 				}
 				catch (RuntimeException $e)
 				{
@@ -119,18 +117,19 @@ class LanguagesModelStrings extends JModelLegacy
 	public function search()
 	{
 		$results = array();
+		$input   = JFactory::getApplication()->input;
 
-		$limitstart = JRequest::getInt('more');
+		$limitstart = $input->getInt('more');
 
 		try
 		{
-			$searchstring = $this->_db->q('%'.JRequest::getString('searchstring').'%');
+			$searchstring = $this->_db->q('%' . $input->getString('searchstring') . '%');
 
 			// Create the search query
 			$query = $this->_db->getQuery(true)
 						->select('constant, string, file')
 						->from($this->_db->qn('#__overrider'));
-			if (JRequest::getCmd('searchtype') == 'constant')
+			if ($input->get('searchtype') == 'constant')
 			{
 				$query->where('constant LIKE '.$searchstring);
 			}

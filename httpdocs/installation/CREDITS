@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		Joomla.Installation
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
@@ -145,7 +145,6 @@ Greek (el-GR) - Greek Joomla Community - Aris Ntatsis
 Gujarati (gu-IN) - Gujarati Translation Team - Ronak Bhagdev
 Hebrew (he-IL) - Hebrew Translation Team - Yair Lahav, Ofer Cohen
 Hungarian (hu-HU) - Magyar Joomla! Felhasznalok Nemzetkozi Egyesulete - Jozsef Tamas Herczeg, Annamaria Ban
-Indonesian (id-ID) - Tim Hanacaraka Joomla Indonesia
 Italian (it-IT) - Italian Translation Team - Stefania Gaianigo, Alessandro Rossi
 Japanese (ja-JP) - Japanese Translation Team - Noriaki Koide, Hiroko Hirano
 Khmer (Cambodia) (km-KH) - Khmer Translation Team - Sovann Heng, Kunthea Thy, Vathana Savuth
@@ -167,7 +166,6 @@ Scottish Gaelic (gd-GB) - Scottish Gaelic Translation - Michael Bauer
 Serbian (sr-RS) and Serbian (sr-YU)- Joomla! Serbia team - Svetlana Zec, Nenad Antic, Marko Milenovic
 Slovak (sk-SK) - Slovak Translation Team - Peter Michnica
 Spanish (es-ES) - Spanish Translation Team - Gustavo Raúl Aragón, Rafael Gómez, Leonel Cantón.
-Swahili (sw-KE) - Hassan Abdalla
 Swedish (sv-SE) - Swedish Translation Team (SvenskJoomla!) - Sune Hultman, Olle Zettergren, Stefan Gagner, Christer Gerhardsson
 Syriac (sy-IQ) - East Syriac Translation Team - Pauls Dinka
 Laotian (lo-LA) - Joomlalaolao Team (LaoOpenSource) - Akarawuth Tamrareang , Viengsakhone phanthanousy , Outhai Saioudom, Chittavong Keomanyvong
@@ -177,7 +175,6 @@ Ukrainian (uk-UA) - Ukrainian Translation Team - Denys Nosov
 Urdu Pakistan (ur-PK) - Basim
 Uyghur China (ug-CN) - Uyghur Translation Team - Ekber Tursun, Osmanjan Hasen, Abdulla Bisir
 Vietnamese (vi-VN) - Joomla Viet Nam Translation Team - Nguyen Huu Hien
-Welsh (cy-GB) - Kieran Kelly
 
 
 -------------------- Joomla! 1.5 Credits ---------------------

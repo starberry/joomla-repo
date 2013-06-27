@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_redirect
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,14 +12,16 @@ defined('_JEXEC') or die;
 /**
  * View to edit a redirect link.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_redirect
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_redirect
+ * @since       1.6
  */
 class RedirectViewLink extends JViewLegacy
 {
 	protected $item;
+
 	protected $form;
+
 	protected $state;
 
 	/**
@@ -47,18 +52,18 @@ class RedirectViewLink extends JViewLegacy
 	 */
 	protected function addToolbar()
 	{
-		JRequest::setVar('hidemainmenu', true);
+		JFactory::getApplication()->input->set('hidemainmenu', true);
 
 		$user		= JFactory::getUser();
 		$isNew		= ($this->item->id == 0);
 		$canDo		= RedirectHelper::getActions();
 
-		JToolBarHelper::title(JText::_('COM_REDIRECT_MANAGER_LINK'), 'redirect');
+		JToolbarHelper::title(JText::_('COM_REDIRECT_MANAGER_LINK'), 'redirect');
 
 		// If not checked out, can save the item.
 		if ($canDo->get('core.edit')) {
-			JToolBarHelper::apply('link.apply');
-			JToolBarHelper::save('link.save');
+			JToolbarHelper::apply('link.apply');
+			JToolbarHelper::save('link.save');
 		}
 
 		// This component does not support Save as Copy due to uniqueness checks.
@@ -66,15 +71,15 @@ class RedirectViewLink extends JViewLegacy
 		// not change the Old URL.
 
 		if ($canDo->get('core.edit') && $canDo->get('core.create')) {
-			JToolBarHelper::save2new('link.save2new');
+			JToolbarHelper::save2new('link.save2new');
 		}
 
 		if (empty($this->item->id)) {
-			JToolBarHelper::cancel('link.cancel');
+			JToolbarHelper::cancel('link.cancel');
 		} else {
-			JToolBarHelper::cancel('link.cancel', 'JTOOLBAR_CLOSE');
+			JToolbarHelper::cancel('link.cancel', 'JTOOLBAR_CLOSE');
 		}
 
-		JToolBarHelper::help('JHELP_COMPONENTS_REDIRECT_MANAGER_EDIT');
+		JToolbarHelper::help('JHELP_COMPONENTS_REDIRECT_MANAGER_EDIT');
 	}
 }

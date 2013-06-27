@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Plugin
+ * @subpackage  System.remember
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,12 +12,13 @@ defined('_JEXEC') or die;
 /**
  * Joomla! System Remember Me Plugin
  *
- * @package		Joomla.Plugin
- * @subpackage	System.remember
+ * @package     Joomla.Plugin
+ * @subpackage  System.remember
+ * @since       1.5
  */
 class plgSystemRemember extends JPlugin
 {
-	function onAfterInitialise()
+	public function onAfterInitialise()
 	{
 		$app = JFactory::getApplication();
 
@@ -30,64 +34,43 @@ class plgSystemRemember extends JPlugin
 
 			if ($str = JRequest::getString($hash, '', 'cookie', JREQUEST_ALLOWRAW | JREQUEST_NOTRIM))
 			{
-				jimport('joomla.utilities.simplecrypt');
-				$credentials = array();
-				$goodCookie = true;
-				$filter = JFilterInput::getInstance();
-
 				// Create the encryption key, apply extra hardening using the user agent string.
-                // Since we're decoding, no UA validity check is required.
+				// Since we're decoding, no UA validity check is required.
 				$privateKey = JApplication::getHash(@$_SERVER['HTTP_USER_AGENT']);
 
 				$key = new JCryptKey('simple', $privateKey, $privateKey);
 				$crypt = new JCrypt(new JCryptCipherSimple, $key);
-			
-				try
-				{
-					$str = $crypt->decrypt($str);
-					if (!is_string($str))
+				$str = $crypt->decrypt($str);
+				$cookieData = @unserialize($str);
+				// Deserialized cookie could be any object structure, so make sure the
+				// credentials are well structured and only have user and password.
+				$credentials = array();
+				$filter = JFilterInput::getInstance();
+				$goodCookie = true;
+				if (is_array($credentials)) {
+					if (isset($cookieData['username']) && is_string($cookieData['username']))
 					{
-						throw new Exception('Decoded cookie is not a string.');
-					}
-
-					$cookieData = json_decode($str);
-					if (null === $cookieData)
-					{
-						throw new Exception('JSON could not be docoded.');
-					}
-					if (!is_object($cookieData))
-					{
-						throw new Exception('Decoded JSON is not an object.');
-					}
-
-					// json_decoded cookie could be any object structure, so make sure the
-					// credentials are well structured and only have user and password.
-					if (isset($cookieData->username) && is_string($cookieData->username))
-					{
-						$credentials['username'] = $filter->clean($cookieData->username, 'username');
+						$credentials['username'] = $filter -> clean($cookieData['username'], 'username');
 					}
 					else
 					{
-						throw new Exception('Malformed username.');
+						$goodCookie = false;
 					}
-					if (isset($cookieData->password) && is_string($cookieData->password))
+					if (isset($cookieData['password']) && is_string($cookieData['password']))
 					{
-						$credentials['password'] = $filter->clean($cookieData->password, 'string');
+						$credentials['password'] = $filter -> clean($cookieData['password'], 'string');
 					}
 					else
 					{
-						throw new Exception('Malformed password.');
+						$goodCookie = false;
 					}
-
-					$return = $app->login($credentials, array('silent' => true));
-					if (!$return)
-					{
-						throw new Exception('Log-in failed.');
-					}
-
 				}
-				catch (Exception $e)
+				else
 				{
+					$goodCookie = false;
+				}
+
+				if (!$goodCookie || !$app->login($credentials, array('silent' => true))) {
 					$config = JFactory::getConfig();
 					$cookie_domain = $config->get('cookie_domain', '');
 					$cookie_path = $config->get('cookie_path', '/');
@@ -96,7 +79,6 @@ class plgSystemRemember extends JPlugin
 						JApplication::getHash('JLOGIN_REMEMBER'), false, time() - 86400,
 						$cookie_path, $cookie_domain
 					);
-					JLog::add('A remember me cookie was unset for the following reason: ' . $e->getMessage(), JLog::WARNING, 'security');
 				}
 			}
 		}

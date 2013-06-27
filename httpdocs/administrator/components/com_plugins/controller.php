@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_plugins
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Plugins master display controller.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_plugins
- * @since		1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_plugins
+ * @since       1.5
  */
 class PluginsController extends JControllerLegacy
 {
@@ -29,11 +32,11 @@ class PluginsController extends JControllerLegacy
 		require_once JPATH_COMPONENT.'/helpers/plugins.php';
 
 		// Load the submenu.
-		PluginsHelper::addSubmenu(JRequest::getCmd('view', 'plugins'));
+		PluginsHelper::addSubmenu($this->input->get('view', 'plugins'));
 
-		$view		= JRequest::getCmd('view', 'plugins');
-		$layout 	= JRequest::getCmd('layout', 'default');
-		$id			= JRequest::getInt('extension_id');
+		$view   = $this->input->get('view', 'plugins');
+		$layout = $this->input->get('layout', 'default');
+		$id     = $this->input->getInt('extension_id');
 
 		// Check for edit form.
 		if ($view == 'plugin' && $layout == 'edit' && !$this->checkEditId('com_plugins.edit.plugin', $id)) {

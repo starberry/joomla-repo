@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_config
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_config
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -11,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Config Component Controller
  *
- * @package		Joomla.Administrator
- * @subpackage	com_config
- * @since 1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_config
+ * @since       1.5
  */
 class ConfigController extends JControllerLegacy
 {
@@ -38,9 +39,9 @@ class ConfigController extends JControllerLegacy
 		$document	= JFactory::getDocument();
 
 		// Set the default view name and format from the Request.
-		$vName		= JRequest::getCmd('view', 'application');
-		$vFormat	= $document->getType();
-		$lName		= JRequest::getCmd('layout', 'default');
+		$vName   = $this->input->get('view', 'application');
+		$vFormat = $document->getType();
+		$lName   = $this->input->get('layout', 'default');
 
 		// Get and render the view.
 		if ($view = $this->getView($vName, $vFormat)) {
@@ -60,7 +61,7 @@ class ConfigController extends JControllerLegacy
 			$view->setLayout($lName);
 
 			// Push document object into the view.
-			$view->assignRef('document', $document);
+			$view->document = $document;
 
 			$view->display();
 		}

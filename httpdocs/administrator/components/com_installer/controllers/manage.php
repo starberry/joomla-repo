@@ -1,16 +1,17 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_installer
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License, see LICENSE.php
+ * @package     Joomla.Administrator
+ * @subpackage  com_installer
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_installer
+ * @package     Joomla.Administrator
+ * @subpackage  com_installer
  */
 class InstallerControllerManage extends JControllerLegacy
 {
@@ -25,8 +26,8 @@ class InstallerControllerManage extends JControllerLegacy
 	{
 		parent::__construct($config);
 
-		$this->registerTask('unpublish',		'publish');
-		$this->registerTask('publish',			'publish');
+		$this->registerTask('unpublish', 'publish');
+		$this->registerTask('publish',   'publish');
 	}
 
 	/**
@@ -39,12 +40,10 @@ class InstallerControllerManage extends JControllerLegacy
 		// Check for request forgeries.
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		// Initialise variables.
-		$user	= JFactory::getUser();
-		$ids	= JRequest::getVar('cid', array(), '', 'array');
-		$values	= array('publish' => 1, 'unpublish' => 0);
-		$task	= $this->getTask();
-		$value	= JArrayHelper::getValue($values, $task, 0, 'int');
+		$ids    = $this->input->get('cid', array(), 'array');
+		$values = array('publish' => 1, 'unpublish' => 0);
+		$task   = $this->getTask();
+		$value  = JArrayHelper::getValue($values, $task, 0, 'int');
 
 		if (empty($ids)) {
 			JError::raiseWarning(500, JText::_('COM_INSTALLER_ERROR_NO_EXTENSIONS_SELECTED'));
@@ -79,8 +78,8 @@ class InstallerControllerManage extends JControllerLegacy
 		// Check for request forgeries
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$eid	= JRequest::getVar('cid', array(), '', 'array');
-		$model	= $this->getModel('manage');
+		$eid   = $this->input->get('cid', array(), 'array');
+		$model = $this->getModel('manage');
 
 		JArrayHelper::toInteger($eid, array());
 		$result = $model->remove($eid);
@@ -94,13 +93,13 @@ class InstallerControllerManage extends JControllerLegacy
 	 *
 	 * @since	1.6
 	 */
-	function refresh()
+	public function refresh()
 	{
 		// Check for request forgeries
 		JSession::checkToken() or jexit(JText::_('JINVALID_TOKEN'));
 
-		$uid	= JRequest::getVar('cid', array(), '', 'array');
-		$model	= $this->getModel('manage');
+		$uid   = $this->input->get('cid', array(), 'array');
+		$model = $this->getModel('manage');
 
 		JArrayHelper::toInteger($uid, array());
 		$result = $model->refresh($uid);

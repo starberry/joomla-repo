@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_messages
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,14 +12,16 @@ defined('_JEXEC') or die;
 /**
  * HTML View class for the Messages component
  *
- * @package		Joomla.Administrator
- * @subpackage	com_messages
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_messages
+ * @since       1.6
  */
 class MessagesViewMessage extends JViewLegacy
 {
 	protected $form;
+
 	protected $item;
+
 	protected $state;
 
 	public function display($tpl = null)
@@ -43,18 +48,18 @@ class MessagesViewMessage extends JViewLegacy
 	protected function addToolbar()
 	{
 		if ($this->getLayout() == 'edit') {
-			JToolBarHelper::title(JText::_('COM_MESSAGES_WRITE_PRIVATE_MESSAGE'), 'new-privatemessage.png');
-			JToolBarHelper::save('message.save', 'COM_MESSAGES_TOOLBAR_SEND');
-			JToolBarHelper::cancel('message.cancel');
-			JToolBarHelper::help('JHELP_COMPONENTS_MESSAGING_WRITE');
+			JToolbarHelper::title(JText::_('COM_MESSAGES_WRITE_PRIVATE_MESSAGE'), 'new-privatemessage.png');
+			JToolbarHelper::save('message.save', 'COM_MESSAGES_TOOLBAR_SEND');
+			JToolbarHelper::cancel('message.cancel');
+			JToolbarHelper::help('JHELP_COMPONENTS_MESSAGING_WRITE');
 		} else {
-			JToolBarHelper::title(JText::_('COM_MESSAGES_VIEW_PRIVATE_MESSAGE'), 'inbox.png');
+			JToolbarHelper::title(JText::_('COM_MESSAGES_VIEW_PRIVATE_MESSAGE'), 'inbox.png');
 			$sender = JUser::getInstance($this->item->user_id_from);
 			if ($sender->authorise('core.admin') || $sender->authorise('core.manage', 'com_messages') && $sender->authorise('core.login.admin')) {
-				JToolBarHelper::custom('message.reply', 'restore.png', 'restore_f2.png', 'COM_MESSAGES_TOOLBAR_REPLY', false);
+				JToolbarHelper::custom('message.reply', 'restore.png', 'restore_f2.png', 'COM_MESSAGES_TOOLBAR_REPLY', false);
 			}
-			JToolBarHelper::cancel('message.cancel');
-			JToolBarHelper::help('JHELP_COMPONENTS_MESSAGING_READ');
+			JToolbarHelper::cancel('message.cancel');
+			JToolbarHelper::help('JHELP_COMPONENTS_MESSAGING_READ');
 		}
 	}
 }

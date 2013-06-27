@@ -1,15 +1,18 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_messages
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_messages
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_messages
+ * @since       1.6
  */
 class MessagesHelper
 {
@@ -21,16 +24,15 @@ class MessagesHelper
 	 * @return	void
 	 * @since	1.6
 	 */
-
 	public static function addSubmenu($vName)
 	{
-		JSubMenuHelper::addEntry(
+		JHtmlSidebar::addEntry(
 			JText::_('COM_MESSAGES_ADD'),
 			'index.php?option=com_messages&view=message&layout=edit',
 			$vName == 'message'
 		);
 
-		JSubMenuHelper::addEntry(
+		JHtmlSidebar::addEntry(
 			JText::_('COM_MESSAGES_READ'),
 			'index.php?option=com_messages',
 			$vName == 'messages'
@@ -61,7 +63,7 @@ class MessagesHelper
 	 *
 	 * @return	array	An array of JHtmlOption elements.
 	 */
-	static function getStateOptions()
+	public static function getStateOptions()
 	{
 		// Build the filter options.
 		$options	= array();

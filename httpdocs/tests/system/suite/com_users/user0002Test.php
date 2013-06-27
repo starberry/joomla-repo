@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		Joomla.SystemTest
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  * Adds a user in back end and logs in as new user in front end
  */
@@ -72,7 +72,7 @@ class User0002Test extends SeleniumJoomlaTestCase
     echo "Delete all users in view\n";
     $this->click("checkall-toggle");
     echo("Delete new user.\n");
-    $this->click("//li[@id='toolbar-delete']/a/span");
+    $this->click("//div[@id='toolbar-delete']/button");
     $this->waitForPageToLoad("30000");
     try {
     	$this->assertTrue($this->isTextPresent("success"));

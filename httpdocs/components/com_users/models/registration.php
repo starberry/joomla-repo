@@ -1,22 +1,20 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_users
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_users
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modelform');
-jimport('joomla.event.dispatcher');
-
 /**
  * Registration model class for Users.
  *
- * @package		Joomla.Site
- * @subpackage	com_users
- * @since		1.6
+ * @package     Joomla.Site
+ * @subpackage  com_users
+ * @since       1.6
  */
 class UsersModelRegistration extends JModelForm
 {
@@ -96,13 +94,13 @@ class UsersModelRegistration extends JModelForm
 						' FROM #__users' .
 						' WHERE sendEmail=1';
 
-			$db->setQuery( $query );
+			$db->setQuery($query);
 			$rows = $db->loadObjectList();
 
 			// Send mail to all users with users creating permissions and receiving system emails
 			foreach( $rows as $row )
 			{
-				$usercreator = JFactory::getUser($id = $row->id);
+				$usercreator = JFactory::getUser($row->id);
 				if ($usercreator->authorise('core.create', 'com_users'))
 				{
 					$return = JFactory::getMailer()->sendMail($data['mailfrom'], $data['fromname'], $row->email, $emailSubject, $emailBody);
@@ -178,14 +176,14 @@ class UsersModelRegistration extends JModelForm
 	 */
 	public function getData()
 	{
-		if ($this->data === null) {
-
-			$this->data	= new stdClass();
+		if ($this->data === null)
+		{
+			$this->data	= new stdClass;
 			$app	= JFactory::getApplication();
 			$params	= JComponentHelper::getParams('com_users');
 
 			// Override the base user data with any data in the session.
-			$temp = (array)$app->getUserState('com_users.registration.data', array());
+			$temp = (array) $app->getUserState('com_users.registration.data', array());
 			foreach ($temp as $k => $v) {
 				$this->data->$k = $v;
 			}
@@ -203,7 +201,7 @@ class UsersModelRegistration extends JModelForm
 			unset($this->data->password2);
 
 			// Get the dispatcher and load the users plugins.
-			$dispatcher	= JDispatcher::getInstance();
+			$dispatcher	= JEventDispatcher::getInstance();
 			JPluginHelper::importPlugin('user');
 
 			// Trigger the data preparation event.
@@ -305,7 +303,7 @@ class UsersModelRegistration extends JModelForm
 
 		// Initialise the table with JUser.
 		$user = new JUser;
-		$data = (array)$this->getData();
+		$data = (array) $this->getData();
 
 		// Merge in the registration data.
 		foreach ($temp as $k => $v) {
@@ -461,7 +459,7 @@ class UsersModelRegistration extends JModelForm
 					' FROM #__users' .
 					' WHERE sendEmail=1';
 
-			$db->setQuery( $query );
+			$db->setQuery($query);
 			$rows = $db->loadObjectList();
 
 			// Send mail to all superadministrators id
@@ -489,7 +487,7 @@ class UsersModelRegistration extends JModelForm
 			$db->setQuery($q);
 			$sendEmail = $db->loadColumn();
 			if (count($sendEmail) > 0) {
-				$jdate = new JDate();
+				$jdate = new JDate;
 				// Build the query to add the messages
 				$q = "INSERT INTO ".$db->quoteName('#__messages')." (".$db->quoteName('user_id_from').
 				", ".$db->quoteName('user_id_to').", ".$db->quoteName('date_time').
@@ -501,16 +499,22 @@ class UsersModelRegistration extends JModelForm
 				}
 				$q .= implode(',', $messages);
 				$db->setQuery($q);
-				$db->query();
+				$db->execute();
 			}
 			return false;
 		}
 
 		if ($useractivation == 1)
+		{
 			return "useractivate";
+		}
 		elseif ($useractivation == 2)
+		{
 			return "adminactivate";
+		}
 		else
+		{
 			return $user->id;
+		}
 	}
 }

@@ -1,17 +1,18 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_templates
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_templates
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_templates
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_templates
+ * @since       1.6
  */
 class TemplatesModelTemplate extends JModelLegacy
 {
@@ -45,7 +46,6 @@ class TemplatesModelTemplate extends JModelLegacy
 	 */
 	public function getFiles()
 	{
-		// Initialise variables.
 		$result	= array();
 
 		if ($template = $this->getTemplate()) {
@@ -103,7 +103,7 @@ class TemplatesModelTemplate extends JModelLegacy
 		$app = JFactory::getApplication('administrator');
 
 		// Load the User state.
-		$pk = (int) JRequest::getInt('id');
+		$pk = $app->input->getInt('id');
 		$this->setState('extension.id', $pk);
 
 		// Load the parameters.
@@ -120,7 +120,6 @@ class TemplatesModelTemplate extends JModelLegacy
 	public function &getTemplate()
 	{
 		if (empty($this->template)) {
-			// Initialise variables.
 			$pk		= $this->getState('extension.id');
 			$db		= $this->getDbo();
 			$result	= false;
@@ -133,13 +132,19 @@ class TemplatesModelTemplate extends JModelLegacy
 				'  AND type = '.$db->quote('template')
 			);
 
-			$result = $db->loadObject();
+			try
+			{
+				$result = $db->loadObject();
+			}
+			catch (RuntimeException $e)
+			{
+				$this->setError($e->getMessage());
+				$this->template = false;
+				return false;
+			}
+
 			if (empty($result)) {
-				if ($error = $db->getErrorMsg()) {
-					$this->setError($error);
-				} else {
-					$this->setError(JText::_('COM_TEMPLATES_ERROR_EXTENSION_RECORD_NOT_FOUND'));
-				}
+				$this->setError(JText::_('COM_TEMPLATES_ERROR_EXTENSION_RECORD_NOT_FOUND'));
 				$this->template = false;
 			} else {
 				$this->template = $result;
@@ -261,7 +266,7 @@ class TemplatesModelTemplate extends JModelLegacy
 		$xmlFile = $this->getState('to_path') . '/templateDetails.xml';
 		if (JFile::exists($xmlFile))
 		{
-			$contents = JFile::read($xmlFile);
+			$contents = file_get_contents($xmlFile);
 			$pattern[] = '#<name>\s*' . $oldName . '\s*</name>#i';
 			$replace[] = '<name>'. $newName . '</name>';
 			$pattern[] = '#<language(.*)' . $oldName . '(.*)</language>#';

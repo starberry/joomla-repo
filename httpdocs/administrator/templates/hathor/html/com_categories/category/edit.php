@@ -1,17 +1,18 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	Templates.hathor
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  Template.hathor
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-// no direct access
 defined('_JEXEC') or die;
 
 // Include the component HTML helpers.
 JHtml::addIncludePath(JPATH_COMPONENT.'/helpers/html');
+
+$input = JFactory::getApplication()->input;
 
 // Load the tooltip behavior.
 JHtml::_('behavior.tooltip');
@@ -33,7 +34,7 @@ JHtml::_('behavior.keepalive');
 
 <div class="category-edit">
 
-<form action="<?php echo JRoute::_('index.php?option=com_categories&extension='.JRequest::getCmd('extension', 'com_content').'&layout=edit&id='.(int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
+<form action="<?php echo JRoute::_('index.php?option=com_categories&extension=' . $input->getCmd('extension', 'com_content') . '&layout=edit&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="item-form" class="form-validate">
 	<div class="col main-section">
 		<fieldset class="adminform">
 			<legend><?php echo JText::_('COM_CATEGORIES_FIELDSET_DETAILS');?></legend>
@@ -80,7 +81,7 @@ JHtml::_('behavior.keepalive');
 
 	<div class="col options-section">
 
-		<?php echo JHtml::_('sliders.start', 'categories-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
+		<?php echo JHtml::_('sliders.start', 'categories-sliders-' . $this->item->id, array('useCookie' => 1)); ?>
 			<?php echo $this->loadTemplate('options'); ?>
 			<div class="clr"></div>
 
@@ -90,24 +91,6 @@ JHtml::_('behavior.keepalive');
 				<?php echo $this->loadTemplate('metadata'); ?>
 			</fieldset>
 
-	<?php  $fieldSets = $this->form->getFieldsets('attribs'); ?>
-		<?php foreach ($fieldSets as $name => $fieldSet) : ?>
-			<?php $label = !empty($fieldSet->label) ? $fieldSet->label : 'COM_CATEGORIES_'.$name.'_FIELDSET_LABEL'; ?>
-			<?php if ($name != 'editorConfig' && $name != 'basic-limited') : ?>
-				<?php echo JHtml::_('sliders.panel', JText::_($label), $name.'-options'); ?>
-				<?php if (isset($fieldSet->description) && trim($fieldSet->description)) : ?>
-					<p class="tip"><?php echo $this->escape(JText::_($fieldSet->description));?></p>
-				<?php endif; ?>
-				<fieldset class="panelform">
-					<ul class="adminformlist">
-					<?php foreach ($this->form->getFieldset($name) as $field) : ?>
-						<li><?php echo $field->label; ?>
-						<?php echo $field->input; ?></li>
-					<?php endforeach; ?>
-					</ul>
-				</fieldset>
-			<?php endif ?>
-		<?php endforeach; ?>
 		<?php echo JHtml::_('sliders.end'); ?>
 	</div>
 	<div class="clr"></div>
@@ -115,7 +98,7 @@ JHtml::_('behavior.keepalive');
 	<?php if ($this->canDo->get('core.admin')): ?>
 		<div  class="col rules-section">
 
-			<?php echo JHtml::_('sliders.start', 'permissions-sliders-'.$this->item->id, array('useCookie'=>1)); ?>
+			<?php echo JHtml::_('sliders.start', 'permissions-sliders-' . $this->item->id, array('useCookie' => 1)); ?>
 
 			<?php echo JHtml::_('sliders.panel', JText::_('COM_CATEGORIES_FIELDSET_RULES'), 'access-rules'); ?>
 			<fieldset class="panelform">

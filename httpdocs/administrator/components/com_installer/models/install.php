@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_installer
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_installer
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -11,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Extension Manager Install Model
  *
- * @package		Joomla.Administrator
- * @subpackage	com_installer
- * @since		1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_installer
+ * @since       1.5
  */
 class InstallerModelInstall extends JModelLegacy
 {
@@ -43,7 +44,6 @@ class InstallerModelInstall extends JModelLegacy
 	 */
 	protected function populateState()
 	{
-		// Initialise variables.
 		$app = JFactory::getApplication('administrator');
 
 		$this->setState('message', $app->getUserState('com_installer.message'));
@@ -63,7 +63,7 @@ class InstallerModelInstall extends JModelLegacy
 	 * @return	boolean result of install
 	 * @since	1.5
 	 */
-	function install()
+	public function install()
 	{
 		$this->setState('action', 'install');
 
@@ -71,7 +71,8 @@ class InstallerModelInstall extends JModelLegacy
 		JClientHelper::setCredentialsFromRequest('ftp');
 		$app = JFactory::getApplication();
 
-		switch(JRequest::getWord('installtype')) {
+		switch ($app->input->getWord('installtype'))
+		{
 			case 'folder':
 				// Remember the 'Install from Directory' path.
 				$app->getUserStateFromRequest($this->_context.'.install_directory', 'install_directory');
@@ -128,7 +129,6 @@ class InstallerModelInstall extends JModelLegacy
 		}
 
 		JInstallerHelper::cleanupInstall($package['packagefile'], $package['extractdir']);
-
 
 		return $result;
 	}
@@ -190,8 +190,10 @@ class InstallerModelInstall extends JModelLegacy
 	 */
 	protected function _getPackageFromFolder()
 	{
+		$input = JFactory::getApplication()->input;
+
 		// Get the path to the package to install
-		$p_dir = JRequest::getString('install_directory');
+		$p_dir = $input->getString('install_directory');
 		$p_dir = JPath::clean($p_dir);
 
 		// Did you give us a valid directory?
@@ -225,11 +227,10 @@ class InstallerModelInstall extends JModelLegacy
 	 */
 	protected function _getPackageFromUrl()
 	{
-		// Get a database connector
-		$db = JFactory::getDbo();
+		$input = JFactory::getApplication()->input;
 
 		// Get the URL of the package to install
-		$url = JRequest::getString('install_url');
+		$url = $input->getString('install_url');
 
 		// Did you give us a URL?
 		if (!$url) {
@@ -246,8 +247,8 @@ class InstallerModelInstall extends JModelLegacy
 			return false;
 		}
 
-		$config		= JFactory::getConfig();
-		$tmp_dest	= $config->get('tmp_path');
+		$config   = JFactory::getConfig();
+		$tmp_dest = $config->get('tmp_path');
 
 		// Unpack the downloaded package file
 		$package = JInstallerHelper::unpack($tmp_dest . '/' . $p_file);

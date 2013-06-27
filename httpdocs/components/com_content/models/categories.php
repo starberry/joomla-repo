@@ -1,21 +1,22 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
 
-jimport('joomla.application.component.modellist');
-
 /**
  * This models supports retrieving lists of article categories.
  *
- * @package		Joomla.Site
- * @subpackage	com_content
- * @since		1.6
+ * @package     Joomla.Site
+ * @subpackage  com_content
+ * @since       1.6
  */
-class ContentModelCategories extends JModelList
+class ContentModelCategories extends JModelLegacy
 {
 	/**
 	 * Model context string.
@@ -48,7 +49,7 @@ class ContentModelCategories extends JModelList
 		$this->setState('filter.extension', $this->_extension);
 
 		// Get the parent id if defined.
-		$parentId = JRequest::getInt('id');
+		$parentId = $app->input->getInt('id');
 		$this->setState('filter.parentId', $parentId);
 
 		$params = $app->getParams();
@@ -94,7 +95,7 @@ class ContentModelCategories extends JModelList
 			$app = JFactory::getApplication();
 			$menu = $app->getMenu();
 			$active = $menu->getActive();
-			$params = new JRegistry();
+			$params = new JRegistry;
 
 			if ($active) {
 				$params->loadString($active->params);

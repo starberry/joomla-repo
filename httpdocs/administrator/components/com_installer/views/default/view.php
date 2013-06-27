@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Administrator
- * @subpackage	com_installer
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_installer
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -11,16 +12,16 @@ defined('_JEXEC') or die;
 /**
  * Extension Manager Default View
  *
- * @package		Joomla.Administrator
- * @subpackage	com_installer
- * @since		1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_installer
+ * @since       1.5
  */
 class InstallerViewDefault extends JViewLegacy
 {
 	/**
 	 * @since	1.5
 	 */
-	function __construct($config = null)
+	public function __construct($config = null)
 	{
 		$app = JFactory::getApplication();
 		parent::__construct($config);
@@ -31,7 +32,7 @@ class InstallerViewDefault extends JViewLegacy
 	/**
 	 * @since	1.5
 	 */
-	function display($tpl=null)
+	public function display($tpl=null)
 	{
 		// Get data from the model
 		$state	= $this->get('State');
@@ -45,7 +46,7 @@ class InstallerViewDefault extends JViewLegacy
 		}
 
 		$this->showMessage = $showMessage;
-		$this->assignRef('state',		$state);
+		$this->state = &$state;
 
 		JHtml::_('behavior.tooltip');
 		$this->addToolbar();
@@ -60,15 +61,18 @@ class InstallerViewDefault extends JViewLegacy
 	protected function addToolbar()
 	{
 		$canDo	= InstallerHelper::getActions();
-		JToolBarHelper::title(JText::_('COM_INSTALLER_HEADER_' . $this->getName()), 'install.png');
+		JToolbarHelper::title(JText::_('COM_INSTALLER_HEADER_' . $this->getName()), 'install.png');
 
 		if ($canDo->get('core.admin')) {
-			JToolBarHelper::preferences('com_installer');
-			JToolBarHelper::divider();
+			JToolbarHelper::preferences('com_installer');
+			JToolbarHelper::divider();
 		}
 
 		// Document
 		$document = JFactory::getDocument();
 		$document->setTitle(JText::_('COM_INSTALLER_TITLE_' . $this->getName()));
+
+		// Render side bar
+		$this->sidebar = JHtmlSidebar::render();
 	}
 }

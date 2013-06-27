@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_media
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -12,18 +15,20 @@ jimport('joomla.filesystem.file');
 /**
  * Media Component List Model
  *
- * @package		Joomla.Administrator
- * @subpackage	com_media
- * @since 1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_media
+ * @since       1.5
  */
 class MediaModelList extends JModelLegacy
 {
-	function getState($property = null, $default = null)
+	public function getState($property = null, $default = null)
 	{
 		static $set;
 
-		if (!$set) {
-			$folder = JRequest::getVar('folder', '', '', 'path');
+		if (!$set)
+		{
+			$input  = JFactory::getApplication()->input;
+			$folder = $input->get('folder', '', 'path');
 			$this->setState('folder', $folder);
 
 			$parent = str_replace("\\", "/", dirname($folder));
@@ -35,21 +40,21 @@ class MediaModelList extends JModelLegacy
 		return parent::getState($property, $default);
 	}
 
-	function getImages()
+	public function getImages()
 	{
 		$list = $this->getList();
 
 		return $list['images'];
 	}
 
-	function getFolders()
+	public function getFolders()
 	{
 		$list = $this->getList();
 
 		return $list['folders'];
 	}
 
-	function getDocuments()
+	public function getDocuments()
 	{
 		$list = $this->getList();
 
@@ -62,7 +67,7 @@ class MediaModelList extends JModelLegacy
 	 * @param string $listFolder The image directory to display
 	 * @since 1.5
 	 */
-	function getList()
+	public function getList()
 	{
 		static $list;
 
@@ -79,7 +84,6 @@ class MediaModelList extends JModelLegacy
 			$current = '';
 		}
 
-		// Initialise variables.
 		if (strlen($current) > 0) {
 			$basePath = COM_MEDIA_BASE.'/'.$current;
 		}
@@ -107,7 +111,7 @@ class MediaModelList extends JModelLegacy
 			foreach ($fileList as $file)
 			{
 				if (is_file($basePath.'/'.$file) && substr($file, 0, 1) != '.' && strtolower($file) !== 'index.html') {
-					$tmp = new JObject();
+					$tmp = new JObject;
 					$tmp->name = $file;
 					$tmp->title = $file;
 					$tmp->path = str_replace(DIRECTORY_SEPARATOR, '/', JPath::clean($basePath . '/' . $file));
@@ -170,7 +174,7 @@ class MediaModelList extends JModelLegacy
 		if ($folderList !== false) {
 			foreach ($folderList as $folder)
 			{
-				$tmp = new JObject();
+				$tmp = new JObject;
 				$tmp->name = basename($folder);
 				$tmp->path = str_replace(DIRECTORY_SEPARATOR, '/', JPath::clean($basePath . '/' . $folder));
 				$tmp->path_relative = str_replace($mediaBase, '', $tmp->path);

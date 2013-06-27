@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	com_content
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  com_content
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -11,24 +12,31 @@ defined('_JEXEC') or die;
 /**
  * HTML View class for the Content component
  *
- * @package		Joomla.Site
- * @subpackage	com_content
- * @since 1.5
+ * @package     Joomla.Site
+ * @subpackage  com_content
+ * @since       1.5
  */
 class ContentViewCategory extends JViewLegacy
 {
 	protected $state;
+
 	protected $items;
+
 	protected $category;
+
 	protected $children;
+
 	protected $pagination;
 
 	protected $lead_items = array();
+
 	protected $intro_items = array();
+
 	protected $link_items = array();
+
 	protected $columns = 1;
 
-	function display($tpl = null)
+	public function display($tpl = null)
 	{
 		$app	= JFactory::getApplication();
 		$user	= JFactory::getUser();
@@ -84,30 +92,20 @@ class ContentViewCategory extends JViewLegacy
 			if ($item->parent_alias == 'root') {
 				$item->parent_slug = null;
 			}
+			$item->catslug		= $item->category_alias ? ($item->catid.':'.$item->category_alias) : $item->catid;
+			$item->event = new stdClass;
 
-			$item->event = new stdClass();
+			$dispatcher = JEventDispatcher::getInstance();
 
-			$dispatcher = JDispatcher::getInstance();
+			$item->introtext = JHtml::_('content.prepare', $item->introtext, '', 'com_content.category');
 
-			// Old plugins: Ensure that text property is available
-			if (!isset($item->text))
-			{
-				$item->text = $item->introtext;
-			}
-
-			JPluginHelper::importPlugin('content');
-			$results = $dispatcher->trigger('onContentPrepare', array ('com_content.category', &$item, &$this->params, 0));
-
-			// Old plugins: Use processed text as introtext
-			$item->introtext = $item->text;
-
-			$results = $dispatcher->trigger('onContentAfterTitle', array('com_content.category', &$item, &$item->params, 0));
+			$results = $dispatcher->trigger('onContentAfterTitle', array('com_content.article', &$item, &$item->params, 0));
 			$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-			$results = $dispatcher->trigger('onContentBeforeDisplay', array('com_content.category', &$item, &$item->params, 0));
+			$results = $dispatcher->trigger('onContentBeforeDisplay', array('com_content.article', &$item, &$item->params, 0));
 			$item->event->beforeDisplayContent = trim(implode("\n", $results));
 
-			$results = $dispatcher->trigger('onContentAfterDisplay', array('com_content.category', &$item, &$item->params, 0));
+			$results = $dispatcher->trigger('onContentAfterDisplay', array('com_content.article', &$item, &$item->params, 0));
 			$item->event->afterDisplayContent = trim(implode("\n", $results));
 		}
 
@@ -166,14 +164,14 @@ class ContentViewCategory extends JViewLegacy
 		$this->pageclass_sfx = htmlspecialchars($params->get('pageclass_sfx'));
 
 		$this->maxLevel = $params->get('maxLevel', -1);
-		$this->assignRef('state', $state);
-		$this->assignRef('items', $items);
-		$this->assignRef('category', $category);
-		$this->assignRef('children', $children);
-		$this->assignRef('params', $params);
-		$this->assignRef('parent', $parent);
-		$this->assignRef('pagination', $pagination);
-		$this->assignRef('user', $user);
+		$this->state      = &$state;
+		$this->items      = &$items;
+		$this->category   = &$category;
+		$this->children   = &$children;
+		$this->params     = &$params;
+		$this->parent     = &$parent;
+		$this->pagination = &$pagination;
+		$this->user       = &$user;
 
 		$this->_prepareDocument();
 
@@ -221,7 +219,7 @@ class ContentViewCategory extends JViewLegacy
 			}
 		}
 
-		$title = $this->params->get('page_title', '');
+		$title = $this->category->title;
 
 		if (empty($title)) {
 			$title = $app->getCfg('sitename');

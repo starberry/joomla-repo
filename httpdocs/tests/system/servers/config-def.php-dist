@@ -26,7 +26,7 @@ class SeleniumConfig
 	// Example: Your full URL to Joomla! is http://localhost/joomla_16/index.php
 	// then $path would be '/joomla_16/'
 	var $path = '/your_joomla_root/';
-	
+
 	// Set to true if you want to capture screenshots on failure (only for Firefox)
 	var $captureScreenshotOnFailure = false;
 	var $screenShotPath = 'tests/system/screenshots';

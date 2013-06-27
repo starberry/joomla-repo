@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		Joomla.SystemTest
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  * Does a standard Joomla! installation
  */
@@ -91,7 +91,7 @@ class Language0002Test extends SeleniumJoomlaTestCase
 		$this->jClick('Global Configuration');
 		$this->click("server");
 		$this->select("jform_error_reporting", "label=Maximum");
-		$this->click("//li[@id='toolbar-save']/a/span");
+		$this->click("//div[@id='toolbar-save']/button");
 		$this->waitForPageToLoad("30000");
 
 		$this->setCache($cfg->cache);
@@ -103,7 +103,7 @@ class Language0002Test extends SeleniumJoomlaTestCase
 			$this->click("link=Hathor - Default");
 			$this->waitForPageToLoad("30000");
 			$this->click("jform_home1");
-			$this->click("//li[@id='toolbar-save']/a/span");
+			$this->click("//div[@id='toolbar-save']/button");
 			$this->waitForPageToLoad("30000");
 		}
 

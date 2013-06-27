@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_plugins
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,14 +12,16 @@ defined('_JEXEC') or die;
 /**
  * View to edit a plugin.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_plugins
- * @since		1.5
+ * @package     Joomla.Administrator
+ * @subpackage  com_plugins
+ * @since       1.5
  */
 class PluginsViewPlugin extends JViewLegacy
 {
 	protected $item;
+
 	protected $form;
+
 	protected $state;
 
 	/**
@@ -45,20 +50,20 @@ class PluginsViewPlugin extends JViewLegacy
 	 */
 	protected function addToolbar()
 	{
-		JRequest::setVar('hidemainmenu', true);
+		JFactory::getApplication()->input->set('hidemainmenu', true);
 
-		$user		= JFactory::getUser();
-		$canDo		= PluginsHelper::getActions();
+		$user  = JFactory::getUser();
+		$canDo = PluginsHelper::getActions();
 
-		JToolBarHelper::title(JText::sprintf('COM_PLUGINS_MANAGER_PLUGIN', JText::_($this->item->name)), 'plugin');
+		JToolbarHelper::title(JText::sprintf('COM_PLUGINS_MANAGER_PLUGIN', JText::_($this->item->name)), 'plugin');
 
 		// If not checked out, can save the item.
 		if ($canDo->get('core.edit')) {
-			JToolBarHelper::apply('plugin.apply');
-			JToolBarHelper::save('plugin.save');
+			JToolbarHelper::apply('plugin.apply');
+			JToolbarHelper::save('plugin.save');
 		}
-		JToolBarHelper::cancel('plugin.cancel', 'JTOOLBAR_CLOSE');
-		JToolBarHelper::divider();
+		JToolbarHelper::cancel('plugin.cancel', 'JTOOLBAR_CLOSE');
+		JToolbarHelper::divider();
 		// Get the help information for the plugin item.
 
 		$lang = JFactory::getLanguage();
@@ -72,6 +77,6 @@ class PluginsViewPlugin extends JViewLegacy
 		else {
 			$url = null;
 		}
-		JToolBarHelper::help($help->key, false, $url);
+		JToolbarHelper::help($help->key, false, $url);
 	}
 }

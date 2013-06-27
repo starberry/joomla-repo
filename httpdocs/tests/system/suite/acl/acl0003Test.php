@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		Joomla.SystemTest
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  * Tests back-end acces of user belonging to a limited access group.
  */
@@ -43,10 +43,10 @@ class Acl0003Test extends SeleniumJoomlaTestCase
 		$this->doAdminLogin($login, 'password');
 		$this->jClick('Weblinks');
 		echo "Check that user cannot edit, publish, unpublish, or trash weblinks.\n";
-		$this->assertFalse($this->isElementPresent("//li[@id='toolbar-edit']/a/span"));
-		$this->assertFalse($this->isElementPresent("//li[@id='toolbar-publish']/a/span"));
-		$this->assertFalse($this->isElementPresent("//li[@id='toolbar-unpublish']/a/span"));
-		$this->assertFalse($this->isElementPresent("//li[@id='toolbar-trash']/a/span"));
+		$this->assertFalse($this->isElementPresent("//div[@id='toolbar-edit']/button"));
+		$this->assertFalse($this->isElementPresent("//div[@id='toolbar-publish']/button"));
+		$this->assertFalse($this->isElementPresent("//div[@id='toolbar-unpublish']/button"));
+		$this->assertFalse($this->isElementPresent("//div[@id='toolbar-trash']/button"));
 
 		$this->gotoAdmin();
 		$this->doAdminLogout();

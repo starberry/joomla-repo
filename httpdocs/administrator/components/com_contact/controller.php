@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_contact
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,8 +12,8 @@ defined('_JEXEC') or die;
 /**
  * Component Controller
  *
- * @package		Joomla.Administrator
- * @subpackage	com_contact
+ * @package     Joomla.Administrator
+ * @subpackage  com_contact
  */
 class ContactController extends JControllerLegacy
 {
@@ -33,12 +36,9 @@ class ContactController extends JControllerLegacy
 	{
 		require_once JPATH_COMPONENT.'/helpers/contact.php';
 
-		// Load the submenu.
-		ContactHelper::addSubmenu(JRequest::getCmd('view', 'contacts'));
-
-		$view	= JRequest::getCmd('view', 'contacts');
-		$layout = JRequest::getCmd('layout', 'default');
-		$id		= JRequest::getInt('id');
+		$view   = $this->input->get('view', 'contacts');
+		$layout = $this->input->get('layout', 'default');
+		$id     = $this->input->getInt('id');
 
 		// Check for edit form.
 		if ($view == 'contact' && $layout == 'edit' && !$this->checkEditId('com_contact.edit.contact', $id)) {

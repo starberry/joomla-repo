@@ -1,9 +1,10 @@
 <?php
 /**
- * @package		Joomla.Site
- * @subpackage	mod_articles_category
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Site
+ * @subpackage  mod_articles_category
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -14,6 +15,12 @@ require_once $com_path.'helpers/route.php';
 
 JModelLegacy::addIncludePath($com_path . '/models', 'ContentModel');
 
+/**
+ * Helper for mod_articles_category
+ *
+ * @package     Joomla.Site
+ * @subpackage  mod_articles_category
+ */
 abstract class modArticlesCategoryHelper
 {
 	public static function getList(&$params)
@@ -41,21 +48,21 @@ abstract class modArticlesCategoryHelper
 		switch ($mode)
 		{
 			case 'dynamic':
-				$option = JRequest::getCmd('option');
-				$view = JRequest::getCmd('view');
+				$option = $app->input->get('option');
+				$view = $app->input->get('view');
 				if ($option === 'com_content') {
 					switch($view)
 					{
 						case 'category':
-							$catids = array(JRequest::getInt('id'));
+							$catids = array($app->input->getInt('id'));
 							break;
 						case 'categories':
-							$catids = array(JRequest::getInt('id'));
+							$catids = array($app->input->getInt('id'));
 							break;
 						case 'article':
 							if ($params->get('show_on_article_page', 1)) {
-								$article_id = JRequest::getInt('id');
-								$catid = JRequest::getInt('catid');
+								$article_id = $app->input->getInt('id');
+								$catid = $app->input->getInt('catid');
 
 								if (!$catid) {
 									// Get an instance of the generic article model
@@ -178,11 +185,11 @@ abstract class modArticlesCategoryHelper
 		$introtext_limit = $params->get('introtext_limit', 100);
 
 		// Find current Article ID if on an article page
-		$option = JRequest::getCmd('option');
-		$view = JRequest::getCmd('view');
+		$option = $app->input->get('option');
+		$view = $app->input->get('view');
 
 		if ($option === 'com_content' && $view === 'article') {
-			$active_article_id = JRequest::getInt('id');
+			$active_article_id = $app->input->getInt('id');
 		}
 		else {
 			$active_article_id = 0;
@@ -194,23 +201,28 @@ abstract class modArticlesCategoryHelper
 			$item->slug = $item->id.':'.$item->alias;
 			$item->catslug = $item->catid ? $item->catid .':'.$item->category_alias : $item->catid;
 
-			if ($access || in_array($item->access, $authorised)) {
+			if ($access || in_array($item->access, $authorised))
+			{
 				// We know that user has the privilege to view the article
 				$item->link = JRoute::_(ContentHelperRoute::getArticleRoute($item->slug, $item->catslug));
 			}
-			 else {
-				// Angie Fixed Routing
-				$app	= JFactory::getApplication();
-				$menu	= $app->getMenu();
-				$menuitems	= $menu->getItems('link', 'index.php?option=com_users&view=login');
-			if(isset($menuitems[0])) {
+			else
+			{
+				$app  = JFactory::getApplication();
+				$menu = $app->getMenu();
+				$menuitems = $menu->getItems('link', 'index.php?option=com_users&view=login');
+				if (isset($menuitems[0]))
+				{
 					$Itemid = $menuitems[0]->id;
-				} elseif (JRequest::getInt('Itemid') > 0) { //use Itemid from requesting page only if there is no existing menu
-					$Itemid = JRequest::getInt('Itemid');
+				}
+				elseif ($app->input->getInt('Itemid') > 0)
+				{
+					// Use Itemid from requesting page only if there is no existing menu
+					$Itemid = $app->input->getInt('Itemid');
 				}
 
 				$item->link = JRoute::_('index.php?option=com_users&view=login&Itemid='.$Itemid);
-				}
+			}
 
 			// Used for styling the active article
 			$item->active = $item->id == $active_article_id ? 'active' : '';
@@ -254,14 +266,14 @@ abstract class modArticlesCategoryHelper
 	}
 
 	/**
-	* Method to truncate introtext 
-	* 
-	* The goal is to get the proper length plain text string with as much of 
+	* Method to truncate introtext
+	*
+	* The goal is to get the proper length plain text string with as much of
 	* the html intact as possible with all tags properly closed.
-	* 
+	*
 	* @param string   $html       The content of the introtext to be truncated
 	* @param integer  $maxLength  The maximum number of charactes to render
-	* 
+	*
 	* @return  string  The truncated string
 	*/
 	public static function truncate($html, $maxLength = 0)

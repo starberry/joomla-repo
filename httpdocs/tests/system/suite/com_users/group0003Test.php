@@ -1,7 +1,7 @@
 <?php
 /**
  * @package		Joomla.SystemTest
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  * Tests deleting a User Group that does not exist.
  */
@@ -28,7 +28,7 @@ class Group0003Test extends SeleniumJoomlaTestCase
 
 		echo "Delete all groups in view.\n";
 		$this->click("checkall-toggle");
-		$this->click("//li[@id='toolbar-delete']/a");
+		$this->click("//div[@id='toolbar-delete']/button");
 		try
 		{
 			$this->assertEquals("Please first make a selection from the list", $this->getAlert());

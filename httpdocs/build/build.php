@@ -18,13 +18,10 @@
  * 4. Check the archives in the tmp directory.
  *
  * @package		Joomla.Build
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
 
  */
-
-// Make sure file and folder permissions are set correctly
-umask(022);
 
 // Set version for each build
 // Version is first 2 digits (like '1.7', '2.5', or '3.0')
@@ -32,7 +29,7 @@ $version = '2.5';
 
 // Set release for each build
 // Release is third digit (like '0', '1', or '2')
-$release = '11';
+$release = '6';
 
 // Set path to git binary (e.g., /usr/local/git/bin/git or /urs/bin/git)
 $gitPath = '/usr/bin/git';
@@ -81,6 +78,7 @@ $filesArray = array(
 		"images/index.html\n" => true,
 		"includes/index.html\n" => true,
 		"language/index.html\n" => true,
+		"layouts/index.html\n" => true,
 		"libraries/index.html\n" => true,
 		"logs/index.html\n" => true,
 		"media/index.html\n" => true,
@@ -89,11 +87,11 @@ $filesArray = array(
 		"templates/index.html\n" => true,
 		"tmp/index.html\n" => true,
 		"htaccess.txt\n" => true,
-		"web.config.txt\n" => true,
-		"robots.txt.dist\n" => true,
+		"index.php\n" => true,
 		"LICENSE.txt\n" => true,
 		"README.txt\n" => true,
-		"index.php\n" => true,
+		"robots.txt\n" => true,
+		"web.config.txt\n" => true,
 		"joomla.xml\n" => true,
 );
 
@@ -134,20 +132,19 @@ for($num=$release-1; $num >= 0; $num--) {
 	sort($filePut);
 	file_put_contents('diffconvert/'.$version.'.'.$num, implode("", $filePut));
 	file_put_contents('diffconvert/'.$version.'.'.$num.'-deleted', $deletedFiles);
-	
+
 	// Only create archives for 0 and most recent versions. Skip other update versions.
 	if ($num != 0 && ($num != $release - 1)) {
 		echo "Skipping create archive for version $version.$num\n";
 		continue;
 	}
 
-	$fromName = $num == 0 ? 'x' : $num;
 	// Create the diff archive packages using the file name list.
-	system('tar --create --bzip2 --no-recursion --directory '.$full.' --file packages'.$version.'/Joomla_'.$version.'.'.$fromName.'_to_'.$full.'-Stable-Patch_Package.tar.bz2 --files-from diffconvert/'.$version.'.'.$num . '> /dev/null');
-	system('tar --create --gzip  --no-recursion --directory '.$full.' --file packages'.$version.'/Joomla_'.$version.'.'.$fromName.'_to_'.$full.'-Stable-Patch_Package.tar.gz  --files-from diffconvert/'.$version.'.'.$num . '> /dev/null');
+	system('tar --create --bzip2 --no-recursion --directory '.$full.' --file packages'.$version.'/Joomla_'.$version.'.'.$num.'_to_'.$full.'-Stable-Patch_Package.tar.bz2 --files-from diffconvert/'.$version.'.'.$num . '> /dev/null');
+	system('tar --create --gzip  --no-recursion --directory '.$full.' --file packages'.$version.'/Joomla_'.$version.'.'.$num.'_to_'.$full.'-Stable-Patch_Package.tar.gz  --files-from diffconvert/'.$version.'.'.$num . '> /dev/null');
 
 	chdir(''.$full);
-	system('zip ../packages'.$version.'/Joomla_'.$version.'.'.$fromName.'_to_'.$full.'-Stable-Patch_Package.zip -@ < ../diffconvert/'.$version.'.'.$num . '> /dev/null');
+	system('zip ../packages'.$version.'/Joomla_'.$version.'.'.$num.'_to_'.$full.'-Stable-Patch_Package.zip -@ < ../diffconvert/'.$version.'.'.$num . '> /dev/null');
 	chdir('..');
 }
 

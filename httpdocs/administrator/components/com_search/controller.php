@@ -1,7 +1,10 @@
 <?php
 /**
- * @copyright	Copyright (C) 2005 - 2013 Open Source Matters, Inc. All rights reserved.
- * @license		GNU General Public License version 2 or later; see LICENSE.txt
+ * @package     Joomla.Administrator
+ * @subpackage  com_search
+ *
+ * @copyright   Copyright (C) 2005 - 2012 Open Source Matters, Inc. All rights reserved.
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 defined('_JEXEC') or die;
@@ -9,9 +12,9 @@ defined('_JEXEC') or die;
 /**
  * Search master display controller.
  *
- * @package		Joomla.Administrator
- * @subpackage	com_search
- * @since		1.6
+ * @package     Joomla.Administrator
+ * @subpackage  com_search
+ * @since       1.6
  */
 class SearchController extends JControllerLegacy
 {
@@ -35,7 +38,7 @@ class SearchController extends JControllerLegacy
 		require_once JPATH_COMPONENT.'/helpers/search.php';
 
 		// Load the submenu.
-		SearchHelper::addSubmenu(JRequest::getCmd('view', 'searches'));
+		SearchHelper::addSubmenu($this->input->get('view', 'searches'));
 
 		parent::display();
 	}
