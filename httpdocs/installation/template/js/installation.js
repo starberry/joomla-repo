@@ -1,26 +1,26 @@
 /**
  * @package		Joomla.Installation
  * @subpackage	JavaScript
- * @copyright	Copyright (C) 2005 - 2012 Open Source Matters. All rights reserved.
+ * @copyright	Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.
  * @license		GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 var Installation = new Class({
-    initialize: function(container, base) {
-        this.busy = false;
-        this.container = container;
-        this.spinner = new Spinner(this.container);
-        this.baseUrl = base;
-        this.view = '';
+	initialize: function(container, base) {
+		this.busy = false;
+		this.container = container;
+		this.spinner = new Spinner(this.container);
+		this.baseUrl = base;
+		this.view = '';
 
-        this.pageInit();
-    },
+		this.pageInit();
+	},
 
-    pageInit: function() {
-    	this.addToggler();
+	pageInit: function() {
+		this.addToggler();
 		// Attach the validator
 		$$('form.form-validate').each(function(form){ this.attachToForm(form); }, document.formvalidator);
-    },
+	},
 
 	submitform: function() {
 		var form = document.id('adminForm');
@@ -265,6 +265,10 @@ var Installation = new Class({
  	 */
 	removeFolder: function(el) {
 		el = document.id(el);
+		if (document.getElementById("languages"))
+		{
+			document.id(languages).fade('out');
+		}
 		var req = new Request.JSON({
 			url: this.baseUrl + '?task=setup.removeFolder',
 			data: document.id(el.form),
@@ -318,11 +322,11 @@ var Installation = new Class({
 			alwaysHide:true,
 			show: 1
 		});
-    },
+	},
 
 	toggle: function(id, el, value) {
 		var val = document.getElement('input[name=jform['+el+']]:checked').value;
-		if(val == value) {
+		if (val == value) {
 			document.id(id).setStyle('display', '');
 		} else {
 			document.id(id).setStyle('display', 'none');
