@@ -26,6 +26,7 @@ This relies on `starberry/joomla-cms` being branched: convert all tags to branch
 
 8. `git push -u origin master`
 
+
 ## Add new version of Joomla
 
 1. First, make sure `starberry/joomla-cms` has a branch for the new version, eg. "v2.5.9". This can be created from a tag.
@@ -36,15 +37,18 @@ This relies on `starberry/joomla-cms` being branched: convert all tags to branch
 
 4. `git merge master`
  
-5. `git subtree pull -P httpdocs joomla v2.5.9`
+5. `git subtree pull --squash -P httpdocs joomla v2.5.9`
 
-6. `sudo php lib/create_k2_links.php`
+6. `git subtree pull --squash -P lib/k2 getk2 master`
 
-7. `git add -A`
+7. `sudo php lib/create_k2_links.php`
 
-8. `git commit -m'Added K2 Links'`
+8. `git add -A`
 
-9. `git push --all`
+9. `git commit -m'Added K2 Links'`
+
+10. `git push --all`
+
 
 ## Setup of repo from scratch
 
@@ -79,20 +83,24 @@ This relies on `starberry/joomla-cms` being branched: convert all tags to branch
 
 3. `git fetch joomla`
 
-4. `git subtree add -P httpdocs joomla/v2.5.7`
+4. `mkdir lib`
 
-5. `mkdir lib`
+5. Manually pull in `etc`, `lib/*.php`, `.gitignore`, and copy `.git/config` as `.gitconfig` for reference
 
-6. `git subtree add -P lib/k2 getk2/master`
+6. `git add -A`
 
-7. Manually pull in `etc`, `lib/*.php` and `.gitignore`
+7. `git commit`
 
-8. `php lib/create_k2_links.php`
+8. `git checkout master`
 
-9. `git add -A`
+9. `git checkout -b j2.5.7`
 
-10. `git commit`
+10. `git subtree add --squash -P lib/k2 getk2/master`
 
-12. `git checkout -b j2.5.7`
+11. `git subtree add --squash -P httpdocs joomla/v2.5.7`
+
+12. `php lib/create_k2_links.php`
+
+(repeat steps 8-12 as needed)
 
 13. Push --all to origin
