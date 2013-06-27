@@ -7,7 +7,7 @@
 # June 2013
 
 # This script removes the symlinks in place in the GitHub
-# starberry/joomla3/httpdocs for K2, so it can be installed via the web
+# starberry/joomla-repo/httpdocs for K2, so it can be installed via the web
 # front-end, to allow K2 to install the database bits.
 #
 # Once installation is complete, this should be followed by a call of

@@ -7,7 +7,7 @@
 # June 2013
 
 # This script moves K2 into the lib folder of GitHub
-# starberry/joomla3/httpdocs and places symlinks, presumably after
+# starberry/joomla-repo/httpdocs and places symlinks, presumably after
 # remove_k2_links followed by a web installion of K2.
 #
 # As the files are probably owned by apache at this point, sudo is
