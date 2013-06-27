@@ -26,6 +26,90 @@ $ -> Language fix or change
 - -> Removed
 ! -> Note
 
+-------------------- 2.5.10 Stable Release 24-April-2013] ------------------
+
+23-Apr-2013 Mark Dexter
+ # [#30652] Commit for issue 29916 broke Smart Search indexing. Thanks Don Gilbert.
+
+14-Apr-2013 Mark Dexter
+ # [#30506] Joomla update system erases entire site if downloaded zip package is broken. Thanks Aliaksei Kanstantsinau.
+ # [#30288] Module Prepare Paramater breaks Cache + Browser Cache + Application Rendering time. Thanks Parth Lawate. 
+
+14-Apr-2013 Michael Babker
+ # [#29240] Undefined property: JSite::$registeredurlparams.  Thanks Mark Stanton
+
+12-Apr-2013 Jean-Marie Simonet
+ # [#30538] Joomla Update Options button displays even if you don't have permission. Thanks Mark Dexter
+ # [#30537] Menus with default view in URL and sub-tasks are missing in other defined attributes and do not display correctly in menu type input in backend. Thanks Beat
+ #+ [#30139] Memcache handler Issue (Not working at all). Thanks Ofer Cohen and sajal suni
+ # [#29250] *Com_content caches article view no matter of Itemid. Thanks Dennis Hermatski
+ # [#30206] findmanifest should prioritize main folder manifests. Thanks Roberto Segura
+ # [#30154] Allow ability to upload file (eg: profile picture) through com_users registration view. Thanks Cy Lee
+
+11-Apr-2013 Jean-Marie Simonet
+ #$ [#30534] Missing Help Button in Joomla! Update component. Thanks Mark Dexter
+
+08-Apr-2013 Michael Babker
+ # [#29916] MySQL connections are not closed.  Thanks Ian Goldstein
+ # [#30505] Weblink module ignores end publishing date.  Thanks Thomas Hunziker
+
+07-Apr-2013 Michael Babker
+ # [#30091] Help Screens, key wrong, missing or not created correctly.  Thanks Mark Dexter
+ # [#30428] nofollw not set correctly in mod_weblinks.  Thanks Ingo Wetsches
+ # [#30209] Undefined index errors by using the style 'beezTabs' at an beez template.  Thanks Constantin Romankiewicz
+ # [#30041] Use of '/' not being handled well on Windows Servers.  Thanks Parth Lawate
+ # [#30054] Catchable fatal error: Object of class stdClass could not be converted to string in /plugins/system/debug/debug.php on line 303.  Thanks Ryan K.
+ ^ [#29898] mod_banners module must be unprotected extension.  Thanks Alex B.
+
+06-Apr-2013 Mark Dexter
+ # [#30482] Fix tel validation in 2.5.x series. Thanks Don Gilbert.
+ # [#30480] com_contact error in admin->view->contacts search "author:xxxx". Thanks Brent Cordis.
+
+04-Apr-2013 Mark Dexter
+ # Revert [#30430] Severe bug with "com_content" component routing.
+
+04-Apr-2013 Jean-Mari Simonet
+ # [#30430] Severe bug with "com_content" component routing. Thanks sajal soni.
+
+28-Mar-2013 Jean-Marie Simonet
+ # *Multilanguage 2.5: SIngle article display does not filter correctly author contact per language.
+ # [#29417] sendMail automatically adds sender as replyTo. Thanks Roberto.
+
+24-Mar-2013 Michael Babker
+ # [#28978] Smart search (com_finder) - problem when using "Allow Empty Search".  Thanks Valentin
+
+21-Mar-2013 Jean-Marie Simonet
+# [#30346] *Contact creator does not include default language "All" for the contact created
+
+20-Mar-2013 Jean-Marie Simonet
+ # [#29982] Cant add fields to the category form using a plugin. Thanks Parth
+
+18-Mar-2013 Jean-Marie Simonet
+ # [#26860] A Contact name *must not* be unique. Thanks Christophe
+ $ Updating Swahili intallation ini file
+
+17-Mar-2013 Jean-Marie Simonet
+ #+ [#29677] robots.txt in updates. Thanks Mark
+ + [#29294] Show Correct Meta Titles in Joomla Admin for better usability. Thanks Parth
+ # [#29810] File deletion issue. Thanks Elin
+ # [#30312] *Porting to 2.5.x a 3.x improvement in languagefilter
+
+16-Mar-2013 Michael Babker
+ # [#30249] Show Intro Text = Hide currently has no effect in Featured and Category menu items.  Thanks Matt
+
+16-Mar-2013 Jean-Marie Simonet
+ +$ [#27945] Hide Subcategories text. Thanks Aka.
+
+05-Mar-2013 Jean-Marie Simonet
+ + [#29769] com_config component missing triggers on save. Thanks Nicholas Antimisiaris
+
+28-Feb-2013 Jean-Marie Simonet
+ # [#30100] Plugins ordering broken when search filter is populated. Thanks Jurian
+ # [#29968] Only text gets passed to content events in blog view (for Joomla 2.5.x). Thanks Jonathan.
+
+09-Feb-2013 Michael Babker
+ # [#29970] Robots.txt check url no more working.  Thanks Brian
+
 -------------------- 2.5.9 Stable Release [4-February-2013] ------------------
 
 30-Jan-2013 Mark Dexter
@@ -67,7 +151,7 @@ $ -> Language fix or change
  # [#25337] site on unc path, path.php removes
  # [#29919] User Profile Plugin - Required field not enforced
  # [#29799] com_contacts - FormField Modal . Thanks Mark
- 
+
 03-Jan-2013 Michael Babker
  # [#29887] *Disable System redirect breaks 404.  Thanks Yannick
 
