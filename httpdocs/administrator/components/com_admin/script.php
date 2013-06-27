@@ -315,6 +315,7 @@ class joomlaInstallerScript
 			'/administrator/components/com_installer/models/forms/manage.xml',
 			'/administrator/components/com_installer/views/install/tmpl/default_form.php',
 			'/administrator/components/com_installer/views/manage/tmpl/default_filter.php',
+			'/administrator/components/com_languages/views/installed/tmpl/default_ftp.php',
 			'/administrator/components/com_languages/views/installed/tmpl/default_navigation.php',
 			'/administrator/components/com_modules/models/fields/index.html',
 			'/administrator/components/com_modules/models/fields/moduleorder.php',
@@ -525,7 +526,6 @@ class joomlaInstallerScript
 			'/libraries/joomla/utilities/xmlelement.php',
 			'/media/plg_quickicon_extensionupdate/extensionupdatecheck.js',
 			'/media/plg_quickicon_joomlaupdate/jupdatecheck.js',
-
 		);
 
 		// TODO There is an issue while deleting folders using the ftp mode

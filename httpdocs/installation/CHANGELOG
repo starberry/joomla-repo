@@ -26,6 +26,91 @@ $ -> Language fix or change
 - -> Removed
 ! -> Note
 
+-------------------- 3.0.1 Stable Release [9-Oct-2012] ------------------
+
+08-Oct-2012 Mark Dexter
+ # [#29074] Back-end: Unable to save FTP Settings - Catchable fatal error. Thanks Elin.
+ # [#29468] Additional places where null should be changed to array(). Thanks Elin.
+
+08-Oct-2012 Jean-Marie Simonet
+ # [#29454] multi level menus not support RTL languages well. Thanks Chalak
+ # [#29451] beez3: element closed before opened. Thanks Constantin.
+ # [#29452] beez3: change meta tag name from apple-touch-fullscreen to apple-mobile-web-app-capable. Thanks Constantin.
+ # [#29453] Update platform version to 12.2. Thanks Elin
+ ^ Changing en-GB to version 3.0.1
+ # [#29464] Untranslated string COM_INSTALLER_INSTALL_FTP
+
+07-Oct-2012 Jean-Marie Simonet
+ # [#29447] Broken installation with PostgreSQL. Thanks Viet
+ ^ [#29449] *Normalising isis UI part2 components, modules, plugins
+ $ Updating sk-SK.ini
+ # [#29394] beez3 -- single contact. Thanks Constantin
+
+06-Oct-2012 Mark Dexter
+ + [#29445] Allow different update packages for different version dev levels.
+
+06-Oct-2012 Jean-Marie Simonet
+ # [#29262] Wrong file name in garbagecoro cli app
+ # [#29446] One character too much in JFeedPerson
+ 
+05-Oct-2012 Jean-Marie Simonet
+ $ Updating pt-BR.ini
+ # [#29387] unpublish button don't work. Thanks Roberto
+ ^ [#29414] Isis template showing User Name is not a good idea. Thanks Michael
+ # [#29443] *Normalising isis UI part1 administrator folder
+
+04-Oct-2012 Jean-Marie Simonet
+ $ Updating ja-JP.ini
+ # [#29393] beez3 CLOSE INFO. Thanks Angelika
+ # [#29410] Beez3 template_Details.xml needs a rework and beez3 itselfs needs additional files.Thanks Angelika
+ # [#29431] Protostar Template not honouring module Title Hide. Thanks Roberto
+ # [#29429] Can't install Joomla update as an extension. Thanks Mark
+
+03-Oct-2012 Mark Dexter
+ # [#29421] Auto update doesn't work in version 3.0.0.
+ # [#25663] "Can't build admin menu item" error while (re)installing component. Thanks Nicholas Dionysopoulos and Peter Wiseman.
+ # [#28849] Publishing date instead of creation date in com_content/category/view.feed.php. Thanks Tobias Ribizel.
+
+03-Oct-2012 Jean-Marie Simonet
+ +$ Adding installation languages: no-NO
+ # [#29426] *Missing list limit in Extensions Manager => Manage and Install Languages
+ # [#29268] Language dropdown too small in backend login using IE8. Thanks Peter
+ ^ [#29399] Clean up code style. Thanks Elin and Peter.
+
+02-Oct-2012 Jean-Marie Simonet
+ # [#29408] images upload to the wrong folder in image manager. Thanks Roberto
+ $ Missing string for Protostar
+ # Changing obsolete link to lang packs community page
+ # [#29419] *Missing client field (and other fields) when creating a new banner
+
+01-Oct-2012 Jean-Marie Simonet
+ # [#28297] com_banners: BannersModelClients SQL error (group by banner id). Thanks Nils
+ # [#29403] *Missing required="true" in front-end login form
+ # Correcting default_logout.php EOL
+ # [#29407] *Isis wrong implementation of the color parameter
+ +$ Adding installation languages: et-EE
+
+30-Sep-2012 Jean-Marie Simonet
+ # [#29390] Components Title Truncated to 40 Bytes in ISIS
+ # [#29325] *article manager options
+ # [#29307] getComponentsWithConfig does not work for custom components. Thanks Patrick
+
+29-Sep-2012 Mark Dexter
+ # [#29385] Joomla 3.0 stable package has wrong file permissions
+
+29-Sep-2012 Jean-Marie Simonet
+ # [#29343] 'Remove installation folder' button not always working. Thanks Ofer
+ # [#29380] Override Language String Created Cannot be Deleted. Thanks Patrick
+ # [#29374] Languages Cannot be Installed Using Install Languages. Thanks Ofer
+ # [#29006] *J3.0 alpha 2.0 : Fieldset not working for plugin extension.
+
+28-Sep-2012 Jean-Marie Simonet
+ +$ Adding installation languages: tr-TR
+ $ updating sy-IQ
+ #$ Correcting hard coded text in Protostar
+ $ [#29383] Language String TPL_HATHOR_COLOUR_CHOICE_BLUE Missing. Thanks Mig
+ # Missing position footer in Protostar.xml
+
 -------------------- 3.0.0 Stable Release [27-Sep-2012] ------------------
 
 27-Sep-2012 Jean-Marie Simonet
