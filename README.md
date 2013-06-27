@@ -101,6 +101,10 @@ This relies on `starberry/joomla-cms` being branched: convert all tags to branch
 
 12. `php lib/create_k2_links.php`
 
-(repeat steps 8-12 as needed)
+13. `git add -A`
 
-13. Push --all to origin
+14. `git commit -m'Added K2 Links'`
+
+(repeat steps 8-14 as needed)
+
+15. Push --all to origin
