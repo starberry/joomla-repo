@@ -15,19 +15,14 @@ As a result, rebasing to a newer Joomla should be more straightforward.
 
 ## Build a new site
 
-1. `mkdir newsite && cd newsite`
-
-2. `git init`
-
-3. `git remote add joomla-repo git://github.com/starberry/joomla-repo.git`
-
-4. `git remote add origin git://github.com/starberry/newsite.git`
-
-5. `git remote set-url --push origin https://github.com/starberry/newsite`
-
-6. `git fetch --all`
-
-7. `git pull joomla-repo j2.5.9`
-
-8. `git push -u origin master`
+```
+mkdir newsite && cd newsite
+git init
+git remote add joomla-repo git://github.com/starberry/joomla-repo.git
+git fetch --all
+git pull joomla-repo tags/j2.5.9
+git remote add origin git://github.com/starberry/newsite.git
+git remote set-url --push origin https://github.com/starberry/newsite
+git push -u origin master
+```
 
