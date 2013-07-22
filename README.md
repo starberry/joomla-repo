@@ -16,13 +16,30 @@ As a result, rebasing to a newer Joomla should be more straightforward.
 ## Build a new site
 
 ```
+# Create a new _uninitialised_ repo on GitHub, eg "newsite".
+# then..
+
+# Start with a clean, empty repo which we will eventually push to GitHub
 mkdir newsite && cd newsite
 git init
+
+# We want to pull the joomla-repo onto this new project
 git remote add joomla-repo git://github.com/starberry/joomla-repo.git
+
+# Fetch all references, including Joomla version tags
 git fetch --all
-git pull joomla-repo tags/j2.5.9
+
+# Need to initialise the repo's HEAD with a single dummy commit. This can be removed later
+touch dummy; git add dummy; git commit -m'Dummy commit' dummy
+
+# Merge the desired version of Joomla onto this new repo
+git pull joomla-repo tags/j3.1.1
+
+# Add the GitHub repo as the origin
 git remote add origin git://github.com/starberry/newsite.git
 git remote set-url --push origin https://github.com/starberry/newsite
+
+# And push the combined Joomla and fresh repo to the new project
 git push -u origin master
 ```
 
