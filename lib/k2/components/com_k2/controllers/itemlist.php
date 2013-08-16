@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: itemlist.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: itemlist.php 1960 2013-04-11 11:46:46Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -36,6 +36,15 @@ class K2ControllerItemlist extends K2Controller
 		{
 			$urlparams['limit'] = 'UINT';
 			$urlparams['limitstart'] = 'UINT';
+			$urlparams['id'] = 'INT';
+			$urlparams['tag'] = 'STRING';
+			$urlparams['searchword'] = 'STRING';
+			$urlparams['day'] = 'INT';
+			$urlparams['year'] = 'INT';
+			$urlparams['month'] = 'INT';
+			$urlparams['print'] = 'INT';
+			$urlparams['lang'] = 'CMD';
+			$urlparams['Itemid'] = 'INT';
 		}
 		parent::display($cache, $urlparams);
 	}
@@ -47,29 +56,8 @@ class K2ControllerItemlist extends K2Controller
 		$mainframe = JFactory::getApplication();
 		$month = JRequest::getInt('month');
 		$year = JRequest::getInt('year');
-		$months = array(
-			JText::_('K2_JANUARY'),
-			JText::_('K2_FEBRUARY'),
-			JText::_('K2_MARCH'),
-			JText::_('K2_APRIL'),
-			JText::_('K2_MAY'),
-			JText::_('K2_JUNE'),
-			JText::_('K2_JULY'),
-			JText::_('K2_AUGUST'),
-			JText::_('K2_SEPTEMBER'),
-			JText::_('K2_OCTOBER'),
-			JText::_('K2_NOVEMBER'),
-			JText::_('K2_DECEMBER'),
-		);
-		$days = array(
-			JText::_('K2_SUN'),
-			JText::_('K2_MON'),
-			JText::_('K2_TUE'),
-			JText::_('K2_WED'),
-			JText::_('K2_THU'),
-			JText::_('K2_FRI'),
-			JText::_('K2_SAT'),
-		);
+		$months = array(JText::_('K2_JANUARY'), JText::_('K2_FEBRUARY'), JText::_('K2_MARCH'), JText::_('K2_APRIL'), JText::_('K2_MAY'), JText::_('K2_JUNE'), JText::_('K2_JULY'), JText::_('K2_AUGUST'), JText::_('K2_SEPTEMBER'), JText::_('K2_OCTOBER'), JText::_('K2_NOVEMBER'), JText::_('K2_DECEMBER'), );
+		$days = array(JText::_('K2_SUN'), JText::_('K2_MON'), JText::_('K2_TUE'), JText::_('K2_WED'), JText::_('K2_THU'), JText::_('K2_FRI'), JText::_('K2_SAT'), );
 		$cal = new MyCalendar;
 		$cal->setMonthNames($months);
 		$cal->setDayNames($days);

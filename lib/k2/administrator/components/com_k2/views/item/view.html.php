@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1958 2013-04-07 19:00:04Z joomlaworks $
+ * @version		$Id: view.html.php 1983 2013-05-31 13:36:41Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -24,9 +24,10 @@ class K2ViewItem extends K2View
         jimport('joomla.filesystem.file');
         jimport('joomla.html.pane');
         JHTML::_('behavior.keepalive');
+		JHTML::_('behavior.modal');
         JRequest::setVar('hidemainmenu', 1);
         $document = JFactory::getDocument();
-        $document->addScript(JURI::root(true).'/media/k2/assets/js/nicEdit.js?v=2.6.6');
+        $document->addScript(JURI::root(true).'/media/k2/assets/js/nicEdit.js?v=2.6.7');
         //var K2SitePath = '".JURI::root(true)."/';
         $js = "
 					var K2BasePath = '".JURI::base(true)."/';

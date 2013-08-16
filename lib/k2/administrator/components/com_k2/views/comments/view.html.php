@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1954 2013-04-02 16:36:23Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1988 2013-06-27 11:58:48Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -122,6 +122,7 @@ class K2ViewComments extends K2View
 		$categories_options = @array_merge($categories_option, $categories);
 		$lists['categories'] = JHTML::_('select.genericlist', $categories_options, 'filter_category', '', 'value', 'text', $filter_category);
 
+		require_once JPATH_ADMINISTRATOR.'/components/com_k2/models/items.php';
 		$itemsModel = K2Model::getInstance('Items', 'K2Model');
 		$authors = $itemsModel->getItemsAuthors();
 		$options = array();
@@ -186,7 +187,7 @@ class K2ViewComments extends K2View
 		if ($mainframe->isSite())
 		{
 			// CSS
-			$document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.frontend.css?v=2.6.6');
+			$document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.frontend.css?v=2.6.7');
 			$document->addStyleSheet(JURI::root(true).'/templates/system/css/general.css');
 			$document->addStyleSheet(JURI::root(true).'/templates/system/css/system.css');
 			if (K2_JVERSION != '15')

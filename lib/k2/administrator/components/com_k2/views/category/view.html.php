@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1919 2013-02-11 19:02:02Z joomlaworks $
+ * @version		$Id: view.html.php 1962 2013-04-29 12:29:34Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -58,6 +58,7 @@ class K2ViewCategory extends K2View
         $lists['ordering'] = version_compare(JVERSION, '3.0', 'ge') ? NUll : JHTML::_('list.specificordering', $category, $category->id, $query);
         $categories[] = JHTML::_('select.option', '0', JText::_('K2_NONE_ONSELECTLISTS'));
 
+		require_once JPATH_ADMINISTRATOR.'/components/com_k2/models/categories.php';
         $categoriesModel = K2Model::getInstance('Categories', 'K2Model');
         $tree = $categoriesModel->categoriesTree($category, true, false);
         $categories = array_merge($categories, $tree);

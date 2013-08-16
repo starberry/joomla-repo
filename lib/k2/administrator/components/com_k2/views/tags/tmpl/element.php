@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: element.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: element.php 1997 2013-07-08 11:04:41Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -10,7 +10,7 @@
 // no direct access
 defined('_JEXEC') or die;
 ?>
-<form action="index.php" method="post" name="adminForm">
+<form action="index.php" method="post" name="adminForm" id="adminForm">
   <table class="k2AdminTableFilters table">
     <tr>
       <td class="k2AdminTableFiltersSearch">
@@ -45,7 +45,14 @@ defined('_JEXEC') or die;
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="4"><?php echo $this->page->getListFooter(); ?></td>
+        <td colspan="4">
+        	<?php if(K2_JVERSION == '30'): ?>
+			<div class="k2LimitBox">
+				<?php echo $this->page->getLimitBox(); ?>
+			</div>
+			<?php endif; ?>
+        	<?php echo $this->page->getListFooter(); ?>
+        </td>
       </tr>
     </tfoot>
   </table>

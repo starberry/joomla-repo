@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: elFinderVolumeLocalFileSystem.class.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version     $Id: elFinderVolumeLocalFileSystem.class.php 1989 2013-07-04 13:52:28Z lefteris.kavadas $
  * @package     K2
  * @author      JoomlaWorks http://www.joomlaworks.net
  * @copyright   Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -742,7 +742,7 @@ class elFinderVolumeLocalFileSystem extends elFinderVolumeDriver {
                 return false;
             }
             
-            chmod($dir, 0777);
+            chmod($dir, 0755);
             
             // copy in quarantine
             if (!copy($path, $archive)) {

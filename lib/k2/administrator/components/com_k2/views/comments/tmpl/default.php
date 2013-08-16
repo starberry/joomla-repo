@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: default.php 1971 2013-05-01 16:04:17Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -134,7 +134,14 @@ defined('_JEXEC') or die;
 				<tfoot>
 					<tr>
 						<td colspan="15">
-							<div class="k2CommentsPagination"><?php echo $this->page->getListFooter(); ?></div>
+							<div class="k2CommentsPagination">
+								<?php if(K2_JVERSION == '30'): ?>
+								<div class="k2LimitBox">
+									<?php echo $this->page->getLimitBox(); ?>
+								</div>
+								<?php endif; ?>
+								<?php echo $this->page->getListFooter(); ?>
+							</div>
 						</td>
 					</tr>
 				</tfoot>
@@ -145,7 +152,7 @@ defined('_JEXEC') or die;
 							<?php echo $key+1; ?>
 						</td>
 						<td class="center">
-							<?php $row->checked_out = 0; echo JHTML::_('grid.checkedout', $row, $key ); ?>
+							<?php $row->checked_out = 0; echo @JHTML::_('grid.checkedout', $row, $key ); ?>
 						</td>
 						<td id="k2Comment<?php echo $row->id; ?>">
 							<div class="commentText"><?php echo $row->commentText; ?></div>

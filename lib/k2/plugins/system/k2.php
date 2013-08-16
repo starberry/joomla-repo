@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: k2.php 1922 2013-02-11 19:50:16Z joomlaworks $
+ * @version		$Id: k2.php 1978 2013-05-15 19:34:16Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -54,7 +54,7 @@ class plgSystemK2 extends JPlugin
 		// jQuery and K2 JS loading
 		K2HelperHTML::loadjQuery();
 
-		$document->addScript(JURI::root(true).'/components/com_k2/js/k2.js?v2.6.6&amp;sitepath='.JURI::root(true).'/');
+		$document->addScript(JURI::root(true).'/components/com_k2/js/k2.js?v2.6.7&amp;sitepath='.JURI::root(true).'/');
 		//$document->addScriptDeclaration("var K2SitePath = '".JURI::root(true)."/';");
 
 		if (JRequest::getCmd('task') == 'search' && $params->get('googleSearch'))
@@ -150,7 +150,7 @@ class plgSystemK2 extends JPlugin
 			if ($params->get('recaptchaOnRegistration') && $params->get('recaptcha_public_key'))
 			{
 				$document = JFactory::getDocument();
-				$document->addScript('http://api.recaptcha.net/js/recaptcha_ajax.js');
+				$document->addScript('https://www.google.com/recaptcha/api/js/recaptcha_ajax.js');
 				$js = '
 				function showRecaptcha(){
 					Recaptcha.create("'.$params->get('recaptcha_public_key').'", "recaptcha", {
@@ -277,7 +277,7 @@ class plgSystemK2 extends JPlugin
 			/*
 			// TO DO - We open the profile editing page in a modal, so let's define some CSS
 			$document = JFactory::getDocument();
-			$document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.frontend.css?v=2.6.6');
+			$document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.frontend.css?v=2.6.7');
 			$document->addStyleSheet(JURI::root(true).'/templates/system/css/general.css');
 			$document->addStyleSheet(JURI::root(true).'/templates/system/css/system.css');
 			if(K2_JVERSION != '15') {
@@ -445,7 +445,7 @@ class plgSystemK2 extends JPlugin
 		}
 
 		// Define the default Itemid for users and tags. Defined here instead of the K2HelperRoute for performance reasons.
-		// UPDATE : Removed in K2 2.6.6. All K2 links without Itemid now use the anyK2Link defined in the router helper.
+		// UPDATE : Removed in K2 2.6.7. All K2 links without Itemid now use the anyK2Link defined in the router helper.
 		// define('K2_USERS_ITEMID', $componentParams->get('defaultUsersItemid'));
 		// define('K2_TAGS_ITEMID', $componentParams->get('defaultTagsItemid'));
 

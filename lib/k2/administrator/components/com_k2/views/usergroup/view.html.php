@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1962 2013-04-29 12:29:34Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -52,6 +52,7 @@ class K2ViewUserGroup extends K2View
         $this->assignRef('categories', $appliedCategories);
 
         $lists = array();
+		require_once JPATH_ADMINISTRATOR.'/components/com_k2/models/categories.php';
         $categoriesModel = K2Model::getInstance('Categories', 'K2Model');
         $categories = $categoriesModel->categoriesTree(NULL, true);
         $categories_options = @array_merge($categories_option, $categories);

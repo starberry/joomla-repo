@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: install.k2.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: install.k2.php 1967 2013-04-29 17:00:30Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -221,7 +221,11 @@ if (version_compare(JVERSION, '1.6.0', '<'))
         $db->setQuery($query);
         $db->query();
     }
-
+    
+    // Clean up empty entries in #__k2_users table caused by an issue in the K2 user plugin. Fix details: http://code.google.com/p/getk2/source/detail?r=1966
+	$query = "DELETE FROM #__k2_users WHERE userID = 0";
+	$db->setQuery($query);
+	$db->query();
 }
 ?>
 <?php if (version_compare(JVERSION, '1.6.0', '<')): ?>

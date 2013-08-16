@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 1950 2013-03-11 17:22:33Z lefteris.kavadas $
+ * @version		$Id: default.php 1971 2013-05-01 16:04:17Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -101,7 +101,14 @@ $document->addScriptDeclaration("
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="<?php echo 16+sizeof($this->columns); ?>"><?php echo $this->page->getListFooter(); ?></td>
+				<td colspan="<?php echo 16+sizeof($this->columns); ?>">
+					<?php if(K2_JVERSION == '30'): ?>
+					<div class="k2LimitBox">
+						<?php echo $this->page->getLimitBox(); ?>
+					</div>
+					<?php endif; ?>
+					<?php echo $this->page->getListFooter(); ?>
+				</td>
 			</tr>
 		</tfoot>
 		<tbody>
@@ -119,7 +126,7 @@ $document->addScriptDeclaration("
 				<?php else: ?>
 				<td><?php echo $key+1; ?></td>
 				<?php endif; ?>
-				<td class="center"><?php echo JHTML::_('grid.checkedout', $row, $key); ?></td>
+				<td class="center"><?php echo @JHTML::_('grid.checkedout', $row, $key); ?></td>
 				<td>
 					<?php if($this->table->isCheckedOut($this->user->get('id'), $row->checked_out)): ?>
 					<?php echo $row->title; ?>

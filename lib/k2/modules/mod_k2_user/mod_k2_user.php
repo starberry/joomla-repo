@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: mod_k2_user.php 1925 2013-02-11 20:14:06Z joomlaworks $
+ * @version		$Id: mod_k2_user.php 1972 2013-05-01 16:26:58Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -30,10 +30,12 @@ $type = modK2UserHelper::getType();
 $return = modK2UserHelper::getReturnURL($params, $type);
 $user = JFactory::getUser();
 
+$componentParams = JComponentHelper::getParams('com_k2');
+$K2CommentsEnabled = $componentParams->get('comments');
+
 // User avatar
 if ($userAvatarWidthSelect == 'inherit')
 {
-    $componentParams = JComponentHelper::getParams('com_k2');
     $avatarWidth = $componentParams->get('userImageWidth');
 }
 else

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: items.php 1920 2013-02-11 19:07:41Z joomlaworks $
+ * @version		$Id: items.php 1978 2013-05-15 19:34:16Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -79,7 +79,7 @@ class K2ElementItems extends K2Element
 		";
 
         $document->addScriptDeclaration($js);
-        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.modules.css?v=2.6.6');
+        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.modules.css?v=2.6.7');
 
         $current = array();
         if (is_string($value) && !empty($value))

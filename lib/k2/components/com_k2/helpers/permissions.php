@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: permissions.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: permissions.php 1962 2013-04-29 12:29:34Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -68,6 +68,10 @@ class K2HelperPermissions
             {
                 $K2Permissions->actions[] = 'comment.category.all';
             }
+            if ($permissions->get('editPublished'))
+            {
+                $K2Permissions->actions[] = 'editPublished.category.all';
+            }
         }
         else
         {
@@ -119,6 +123,10 @@ class K2HelperPermissions
                     {
                         $K2Permissions->actions[] = 'comment.category.'.$category;
                     }
+		            if ($permissions->get('editPublished'))
+		            {
+		                $K2Permissions->actions[] = 'editPublished.category.'.$category;
+		            }
                 }
             }
         }
@@ -309,6 +317,12 @@ class K2HelperPermissions
     {
         $K2Permissions = K2Permissions::getInstance();
         return in_array('comment.category.all', $K2Permissions->actions) || in_array('comment.category.'.$itemCategory, $K2Permissions->actions);
+    }
+	
+    public static function canEditPublished($itemCategory)
+    {
+        $K2Permissions = K2Permissions::getInstance();
+        return in_array('editPublished.category.all', $K2Permissions->actions) || in_array('editPublished.category.'.$itemCategory, $K2Permissions->actions);
     }
 
 }

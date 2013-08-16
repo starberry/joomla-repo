@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: item.php 1933 2013-02-21 14:27:37Z lefteris.kavadas $
+ * @version		$Id: item.php 1994 2013-07-04 17:25:25Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -203,16 +203,16 @@ class K2ModelItem extends K2Model
 		{
 			$filterTags = preg_split('#[,\s]+#', trim($params->get('introTextCleanupExcludeTags')));
 			$filterAttrs = preg_split('#[,\s]+#', trim($params->get('introTextCleanupTagAttr')));
-			$filter = new JFilterInput($filterTags, $filterAttrs, 0, 1);
-			$item->introtext = $filter->clean($item->introtext);
+			$item->introtext = K2HelperUtilities::cleanTags($item->introtext, $filterTags);
+			$item->introtext = K2HelperUtilities::cleanAttributes($item->introtext, $filterTags, $filterAttrs);
 		}
 
 		if ($params->get('fullTextCleanup'))
 		{
 			$filterTags = preg_split('#[,\s]+#', trim($params->get('fullTextCleanupExcludeTags')));
 			$filterAttrs = preg_split('#[,\s]+#', trim($params->get('fullTextCleanupTagAttr')));
-			$filter = new JFilterInput($filterTags, $filterAttrs, 0, 1);
-			$item->fulltext = $filter->clean($item->fulltext);
+			$item->fulltext = K2HelperUtilities::cleanTags($item->fulltext, $filterTags);
+			$item->fulltext = K2HelperUtilities::cleanAttributes($item->fulltext, $filterTags, $filterAttrs);
 		}
 
 		if ($item->params->get('catItemIntroTextWordLimit') && $task == 'category')
@@ -1158,22 +1158,64 @@ class K2ModelItem extends K2Model
 
 			}
 
-			if ($params->get('recaptcha') && $user->guest)
+			// Google reCAPTCHA
+			if ($params->get('antispam') == 'recaptcha' || $params->get('antispam') == 'both')
 			{
-				if (!function_exists('_recaptcha_qsencode'))
+				if ($user->guest || $params->get('recaptchaForRegistered', 1))
 				{
-					require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_k2'.DS.'lib'.DS.'recaptchalib.php');
+
+					if (!function_exists('_recaptcha_qsencode'))
+					{
+						require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_k2'.DS.'lib'.DS.'recaptchalib.php');
+					}
+					$privatekey = $params->get('recaptcha_private_key');
+					$recaptcha_challenge_field = isset($_POST["recaptcha_challenge_field"]) ? $_POST["recaptcha_challenge_field"] : '';
+					$recaptcha_response_field = isset($_POST["recaptcha_response_field"]) ? $_POST["recaptcha_response_field"] : '';
+					$resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"], $recaptcha_challenge_field, $recaptcha_response_field);
+					if (!$resp->is_valid)
+					{
+						$response->message = JText::_('K2_THE_WORDS_YOU_TYPED_DID_NOT_MATCH_THE_ONES_DISPLAYED_PLEASE_TRY_AGAIN');
+						echo $json->encode($response);
+						$mainframe->close();
+					}
 				}
-				$privatekey = $params->get('recaptcha_private_key');
-				$recaptcha_challenge_field = isset($_POST["recaptcha_challenge_field"]) ? $_POST["recaptcha_challenge_field"] : '';
-				$recaptcha_response_field = isset($_POST["recaptcha_response_field"]) ? $_POST["recaptcha_response_field"] : '';
-				$resp = recaptcha_check_answer($privatekey, $_SERVER["REMOTE_ADDR"], $recaptcha_challenge_field, $recaptcha_response_field);
-				if (!$resp->is_valid)
+			}
+
+			// Akismet
+			if ($params->get('antispam') == 'akismet' || $params->get('antispam') == 'both')
+			{
+
+				if ($user->guest || $params->get('akismetForRegistered', 1))
 				{
-					$response->message = JText::_('K2_THE_WORDS_YOU_TYPED_DID_NOT_MATCH_THE_ONES_DISPLAYED_PLEASE_TRY_AGAIN');
-					echo $json->encode($response);
-					$mainframe->close();
+					if ($params->get('akismetApiKey'))
+					{
+						require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_k2'.DS.'lib'.DS.'akismet.class.php');
+						$akismetApiKey = $params->get('akismetApiKey');
+						$akismet = new Akismet(JURI::root(false), $akismetApiKey);
+						$akismet->setCommentAuthor($userName);
+						$akismet->setCommentAuthorEmail($commentEmail);
+						$akismet->setCommentAuthorURL($commentURL);
+						$akismet->setCommentContent($commentText);
+						$akismet->setPermalink(JURI::root(false).'index.php?option=com_k2&view=item&id='.JRequest::getInt('itemID'));
+						try
+						{
+							if ($akismet->isCommentSpam())
+							{
+								$response->message = JText::_('K2_SPAM_ATTEMPT_HAS_BEEN_DETECTED_THE_COMMENT_HAS_BEEN_REJECTED');
+								echo $json->encode($response);
+								$mainframe->close();
+							}
+						}
+						catch(Exception $e)
+						{
+							$response->message = $e->getMessage();
+							echo $json->encode($response);
+							$mainframe->close();
+						}
+
+					}
 				}
+
 			}
 
 			if ($commentURL == JText::_('K2_ENTER_YOUR_SITE_URL') || $commentURL == "")
@@ -1427,7 +1469,8 @@ class K2ModelItem extends K2Model
 							case 'lightbox' :
 
 								// Joomla! modal required
-								if (!defined('K2_JOOMLA_MODAL_REQUIRED')) define('K2_JOOMLA_MODAL_REQUIRED', true);
+								if (!defined('K2_JOOMLA_MODAL_REQUIRED'))
+									define('K2_JOOMLA_MODAL_REQUIRED', true);
 
 								$filename = @basename($object->value[1]);
 								$extension = JFile::getExt($filename);
@@ -1444,7 +1487,7 @@ class K2ModelItem extends K2Model
 						$object->value[0] = JString::trim($object->value[0]);
 						$object->value[1] = JString::trim($object->value[1]);
 
-						if ($object->value[1] && ($object->value[1] != 'http://' || $object->value[1] != 'https://'))
+						if ($object->value[1] && $object->value[1] != 'http://' && $object->value[1] != 'https://')
 						{
 							if ($object->value[0] == '')
 							{

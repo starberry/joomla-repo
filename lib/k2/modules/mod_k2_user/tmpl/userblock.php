@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: userblock.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: userblock.php 1972 2013-05-01 16:26:58Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -41,9 +41,11 @@ defined('_JEXEC') or die;
 		<li>
 			<a href="<?php echo $profileLink; ?>"><?php echo JText::_('K2_MY_ACCOUNT'); ?></a>
 		</li>
+		<?php if($K2CommentsEnabled): ?>
 		<li>
 			<a class="modal" rel="{handler:'iframe',size:{x:990,y:550}}" href="<?php echo JRoute::_('index.php?option=com_k2&view=comments&tmpl=component'); ?>"><?php echo JText::_('K2_MODERATE_COMMENTS_TO_MY_PUBLISHED_ITEMS'); ?></a>
 		</li>
+		<?php endif; ?>
 	</ul>
 	
 	<ul class="k2UserBlockRenderedMenu">

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: comments.php 1937 2013-03-07 15:19:16Z lefteris.kavadas $
+ * @version		$Id: comments.php 1992 2013-07-04 16:36:38Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -262,7 +262,7 @@ class K2ModelComments extends K2Model {
             $this->setError(JText::_('K2_PLEASE_TYPE_THE_REPORT_REASON'));
             return false;
         }               
-    	if ($params->get('recaptcha') && $user->guest) {
+    	if (($params->get('antispam') == 'recaptcha' || $params->get('antispam') == 'both') && $user->guest) {
     	    if(!function_exists('_recaptcha_qsencode'))
             {
                 require_once (JPATH_ADMINISTRATOR.DS.'components'.DS.'com_k2'.DS.'lib'.DS.'recaptchalib.php');

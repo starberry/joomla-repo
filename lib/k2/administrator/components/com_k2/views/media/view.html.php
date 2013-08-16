@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1920 2013-02-11 19:07:41Z joomlaworks $
+ * @version		$Id: view.html.php 1978 2013-05-15 19:34:16Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -21,8 +21,8 @@ class K2ViewMedia extends K2View
         $user = JFactory::getUser();
         $document = JFactory::getDocument();
         $document->addStyleSheet('//ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/smoothness/jquery-ui.css');
-        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/theme.css?v=2.6.6');
-        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/elfinder.min.css?v=2.6.6');
+        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/theme.css?v=2.6.7');
+        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/elfinder.min.css?v=2.6.7');
         $type = JRequest::getCmd('type');
         $fieldID = JRequest::getCmd('fieldID');
         if ($type == 'video')

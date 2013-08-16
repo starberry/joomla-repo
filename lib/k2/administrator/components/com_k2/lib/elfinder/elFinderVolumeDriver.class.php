@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: elFinderVolumeDriver.class.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version     $Id: elFinderVolumeDriver.class.php 1989 2013-07-04 13:52:28Z lefteris.kavadas $
  * @package     K2
  * @author      JoomlaWorks http://www.joomlaworks.net
  * @copyright   Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -182,7 +182,7 @@ abstract class elFinderVolumeDriver {
         // directory for thumbnails
         'tmbPath'         => '.tmb',
         // mode to create thumbnails dir
-        'tmbPathMode'     => 0777,
+        'tmbPathMode'     => 0755,
         // thumbnails dir URL. Set it if store thumbnails outside root directory
         'tmbURL'          => '',
         // thumbnails size (px)

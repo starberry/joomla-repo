@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: extrafield.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: extrafield.php 1965 2013-04-29 16:01:44Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -57,6 +57,8 @@ class K2ModelExtraField extends K2Model
 		$names = JRequest::getVar('option_name');
 		$target = JRequest::getVar('option_target');
 		$editor = JRequest::getVar('option_editor');
+		$rows = JRequest::getVar('option_rows');
+		$cols = JRequest::getVar('option_cols');
 		$alias = JRequest::getWord('alias');
 		$required = JRequest::getInt('required');
 		$showNull = JRequest::getInt('showNull');
@@ -117,6 +119,8 @@ class K2ModelExtraField extends K2Model
 			{
 				$object->set('value', $values[$i]);
 				$object->set('editor', $editor[$i]);
+				$object->set('rows', $rows[$i]);
+				$object->set('cols', $cols[$i]);
 			}
 			elseif ($row->type == 'image')
 			{
@@ -217,6 +221,8 @@ class K2ModelExtraField extends K2Model
 			{
 				$active[0] = $value->value;
 				$active[1] = $value->editor;
+				$active[2] = (int)$value->rows ? (int)$value->rows : 10;
+				$active[3] = (int)$value->cols ? (int)$value->cols : 40;
 			}
 			elseif ($extraField->type == 'link')
 			{
@@ -317,7 +323,7 @@ class K2ModelExtraField extends K2Model
 						$attributes = 'class="k2ExtraFieldEditor"';
 					}
 				}
-				$output = '<textarea name="K2ExtraField_'.$extraField->id.'" id="K2ExtraField_'.$extraField->id.'" rows="10" cols="40" '.$attributes.'>'.htmlspecialchars($active[0], ENT_QUOTES, 'UTF-8').'</textarea>';
+				$output = '<textarea name="K2ExtraField_'.$extraField->id.'" id="K2ExtraField_'.$extraField->id.'" rows="'.$active[2].'" cols="'.$active[3].'" '.$attributes.'>'.htmlspecialchars($active[0], ENT_QUOTES, 'UTF-8').'</textarea>';
 				break;
 
 			case 'select' :

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: item.php 1854 2013-02-06 18:05:06Z lefteris.kavadas $
+ * @version     $Id: item.php 1996 2013-07-05 18:06:33Z lefteris.kavadas $
  * @package     K2
  * @author      JoomlaWorks http://www.joomlaworks.net
  * @copyright   Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -510,40 +510,51 @@ class K2ModelItem extends K2Model
 
 				if ($file["tmp_name"] || $attachments_existing_files[$key])
 				{
-
-					$attachmentCleanUpFlag = true;
-
 					if ($attachments_existing_files[$key])
 					{
-						$file = JPATH_SITE.DS.JPath::clean($attachments_existing_files[$key]);
-						$attachmentCleanUpFlag = false;
-					}
-
-					$handle = new Upload($file);
-
-					if ($handle->uploaded)
-					{
-						$handle->file_auto_rename = true;
-						$handle->allowed[] = 'application/x-zip';
-						$handle->allowed[] = 'application/download';
-						$handle->Process($savepath);
-						$filename = $handle->file_dst_name;
-						if ($attachmentCleanUpFlag)
+						$src = JPATH_SITE.DS.JPath::clean($attachments_existing_files[$key]);
+						$dest = $savepath.DS.basename($src);
+						if (JFile::exists($dest))
 						{
-							$handle->Clean();
+							$existingFileName = JFile::getName($dest);
+							$ext = JFile::getExt($existingFileName);
+							$basename = JFile::stripExt($existingFileName);
+							$newFilename = $basename.'_'.time().'.'.$ext;
+							$dest = $savepath.DS.$newFilename;
 						}
-
+						JFile::copy($src, $dest);
 						$attachment = JTable::getInstance('K2Attachment', 'Table');
 						$attachment->itemID = $row->id;
-						$attachment->filename = $filename;
+						$attachment->filename = $dest;
 						$attachment->title = ( empty($attachments_titles[$counter])) ? $filename : $attachments_titles[$counter];
 						$attachment->titleAttribute = ( empty($attachments_title_attributes[$counter])) ? $filename : $attachments_title_attributes[$counter];
 						$attachment->store();
 					}
 					else
 					{
-						$mainframe->redirect('index.php?option=com_k2&view=items', $handle->error, 'error');
+						$handle = new Upload($file);
+						if ($handle->uploaded)
+						{
+							$handle->file_auto_rename = true;
+							$handle->allowed[] = 'application/x-zip';
+							$handle->allowed[] = 'application/download';
+							$handle->Process($savepath);
+							$filename = $handle->file_dst_name;
+							$handle->Clean();
+							$attachment = JTable::getInstance('K2Attachment', 'Table');
+							$attachment->itemID = $row->id;
+							$attachment->filename = $filename;
+							$attachment->title = ( empty($attachments_titles[$counter])) ? $filename : $attachments_titles[$counter];
+							$attachment->titleAttribute = ( empty($attachments_title_attributes[$counter])) ? $filename : $attachments_title_attributes[$counter];
+							$attachment->store();
+						}
+						else
+						{
+							$mainframe->redirect('index.php?option=com_k2&view=items', $handle->error, 'error');
+						}
+
 					}
+
 				}
 
 				$counter++;
@@ -839,9 +850,9 @@ class K2ModelItem extends K2Model
 
 		}
 
-		if ($front)
+		if ($front && $row->published)
 		{
-			if (!K2HelperPermissions::canPublishItem($row->catid) && $row->published)
+			if (($isNew && !K2HelperPermissions::canPublishItem($row->catid)) || (!$isNew && !K2HelperPermissions::canEditPublished($row->catid)))
 			{
 				$row->published = 0;
 				$mainframe->enqueueMessage(JText::_('K2_YOU_DONT_HAVE_THE_PERMISSION_TO_PUBLISH_ITEMS'), 'notice');
@@ -993,6 +1004,7 @@ class K2ModelItem extends K2Model
 	{
 
 		$mainframe = JFactory::getApplication();
+		$user = JFactory::getUser();
 		jimport('joomla.filesystem.file');
 		$params = JComponentHelper::getParams('com_k2');
 		$id = JRequest::getInt('id');
@@ -1012,6 +1024,30 @@ class K2ModelItem extends K2Model
 			}
 		}
 		$attachment->load($id);
+
+		// For front-end ensure that user has access to the item
+		if ($mainframe->isSite())
+		{
+			$item = JTable::getInstance('K2Item', 'Table');
+			$item->load($attachment->itemID);
+			$category = JTable::getInstance('K2Category', 'Table');
+			$category->load($item->catid);
+			if (!$item->id || !$category->id)
+			{
+				JError::raiseError(404, JText::_('K2_NOT_FOUND'));
+			}
+
+			if (K2_JVERSION == '15' && ($item->access > $user->get('aid', 0) || $category->access > $user->get('aid', 0)))
+			{
+				JError::raiseError(403, JText::_('K2_ALERTNOTAUTH'));
+			}
+
+			if (K2_JVERSION != '15' && (!in_array($category->access, $user->getAuthorisedViewLevels()) || !in_array($item->access, $user->getAuthorisedViewLevels())))
+			{
+				JError::raiseError(403, JText::_('K2_ALERTNOTAUTH'));
+			}
+
+		}
 
 		$dispatcher->trigger('onK2BeforeDownload', array(
 			&$attachment,

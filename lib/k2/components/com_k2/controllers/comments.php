@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: comments.php 1920 2013-02-11 19:07:41Z joomlaworks $
+ * @version		$Id: comments.php 1978 2013-05-15 19:34:16Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -51,11 +51,11 @@ class K2ControllerComments extends K2Controller
         $language->load('com_k2', JPATH_ADMINISTRATOR);
 
         // CSS
-        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.css?v=2.6.6');
+        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.css?v=2.6.7');
 
         // JS
         K2HelperHTML::loadjQuery(true);
-        $document->addScript(JURI::root(true).'/media/k2/assets/js/k2.js?v=2.6.6&amp;sitepath='.JURI::root(true).'/');
+        $document->addScript(JURI::root(true).'/media/k2/assets/js/k2.js?v=2.6.7&amp;sitepath='.JURI::root(true).'/');
 
         $this->addViewPath(JPATH_COMPONENT_ADMINISTRATOR.DS.'views');
         $this->addModelPath(JPATH_COMPONENT_ADMINISTRATOR.DS.'models');

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: mod_k2_quickicons.php 1920 2013-02-11 19:07:41Z joomlaworks $
+ * @version		$Id: mod_k2_quickicons.php 1978 2013-05-15 19:34:16Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -70,7 +70,7 @@ JHTML::_('behavior.modal');
 
 // Append CSS to the document's head
 if ($modCSSStyling)
-	$document->addStyleSheet(JURI::base(true).'/modules/'.$mod_name.'/tmpl/css/style.css?v=2.6.6');
+	$document->addStyleSheet(JURI::base(true).'/modules/'.$mod_name.'/tmpl/css/style.css?v=2.6.7');
 
 // Output content with template
 echo $mod_copyrights_start;

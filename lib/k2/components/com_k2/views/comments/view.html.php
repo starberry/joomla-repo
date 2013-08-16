@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1992 2013-07-04 16:36:38Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -8,31 +8,46 @@
  */
 
 // no direct access
-defined('_JEXEC') or die;
+defined('_JEXEC') or die ;
 
 jimport('joomla.application.component.view');
 
-class K2ViewComments extends K2View {
+class K2ViewComments extends K2View
+{
 
-	function report($tpl = null) {
+	function report($tpl = null)
+	{
 		JTable::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR.DS.'tables');
-		$row = & JTable::getInstance('K2Comment', 'Table');
+		$row = &JTable::getInstance('K2Comment', 'Table');
 		$row->load(JRequest::getInt('commentID'));
-		if(!$row->published){
-			 JError::raiseError(404, JText::_('K2_NOT_FOUND'));
+		if (!$row->published)
+		{
+			JError::raiseError(404, JText::_('K2_NOT_FOUND'));
 		}
 		$this->assignRef('row', $row);
 		$user = JFactory::getUser();
 		$this->assignRef('user', $user);
 		$params = &K2HelperUtilities::getParams('com_k2');
-		if(!$params->get('comments') || !$params->get('commentsReporting') || ($params->get('commentsReporting')=='2' && $user->guest) ){
+		if (!$params->get('comments') || !$params->get('commentsReporting') || ($params->get('commentsReporting') == '2' && $user->guest))
+		{
 			JError::raiseError(403, JText::_('K2_ALERTNOTAUTH'));
 		}
+		// Pass the old parameter to the view in order to avoid layout changes
+		if ($params->get('antispam') == 'recaptcha' || $params->get('antispam') == 'both')
+		{
+			$params->set('recaptcha', true);
+		}
+		else
+		{
+			$params->set('recaptcha', false);
+		}
+
 		$this->assignRef('params', $params);
-		if($params->get('recaptcha') && $user->guest){
-		  $document = JFactory::getDocument();
-		  $document->addScript('http://api.recaptcha.net/js/recaptcha_ajax.js');
-  		$js = '
+		if ($params->get('recaptcha') && $user->guest)
+		{
+			$document = JFactory::getDocument();
+			$document->addScript('https://www.google.com/recaptcha/api/js/recaptcha_ajax.js');
+			$js = '
 			function showRecaptcha(){
 				Recaptcha.create("'.$params->get('recaptcha_public_key').'", "recaptcha", {
 					theme: "'.$params->get('recaptcha_theme', 'clean').'"

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1924 2013-02-11 20:05:37Z joomlaworks $
+ * @version		$Id: view.html.php 1981 2013-05-22 15:38:17Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -256,9 +256,9 @@ class K2ViewLatest extends K2View
         $document = JFactory::getDocument();
         $uri = JURI::getInstance();
         $document->setMetaData('og:url', $uri->toString());
-        $document->setMetaData('og:title', htmlspecialchars($document->getTitle(), ENT_QUOTES, 'UTF-8'));
+        $document->setMetaData('og:title', (K2_JVERSION == '15') ? htmlspecialchars($document->getTitle(), ENT_QUOTES, 'UTF-8') : $document->getTitle());
         $document->setMetaData('og:type', 'website');
-        $document->setMetaData('og:description', htmlspecialchars(strip_tags($document->getDescription()), ENT_QUOTES, 'UTF-8'));
+        $document->setMetaData('og:description', strip_tags($document->getDescription()));
 
         //Look for template files in component folders
         $this->_addPath('template', JPATH_COMPONENT.DS.'templates');

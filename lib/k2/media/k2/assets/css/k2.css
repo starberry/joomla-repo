@@ -1,5 +1,5 @@
 /**
- * @version		$Id: k2.css 1941 2013-03-08 19:07:00Z joomlaworks $
+ * @version		$Id: k2.css 1971 2013-05-01 16:04:17Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -51,6 +51,8 @@ a#imagethumb {}
 a#galleryPreview {display:block;}
 img.k2AdminImage {border:4px solid #ddd;margin:10px 0;padding:0;display:block;}
 span.k2Notice {cursor:pointer;font-weight:bold;text-decoration:underline;}
+
+.k2LimitBox { float: left; margin: 0 10px 0 0;}
 
 /* Filters on listings */
 table.k2AdminTableFilters {width:100%;}

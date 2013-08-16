@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: utilities.php 1864 2013-02-07 12:14:22Z lefteris.kavadas $
+ * @version		$Id: utilities.php 1977 2013-05-15 11:39:46Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -127,16 +127,8 @@ class K2HelperUtilities
 		// always strip tags for text
 		$str = strip_tags($str);
 
-		$find = array(
-			"/\r|\n/u",
-			"/\t/u",
-			"/\s\s+/u"
-		);
-		$replace = array(
-			" ",
-			" ",
-			" "
-		);
+		$find = array("/\r|\n/u", "/\t/u", "/\s\s+/u");
+		$replace = array(" ", " ", " ");
 		$str = preg_replace($find, $replace, $str);
 
 		preg_match('/\s*(?:\S*\s*){'.(int)$limit.'}/u', $str, $matches);
@@ -154,16 +146,8 @@ class K2HelperUtilities
 		// always strip tags for text
 		$str = strip_tags(JString::trim($str));
 
-		$find = array(
-			"/\r|\n/u",
-			"/\t/u",
-			"/\s\s+/u"
-		);
-		$replace = array(
-			" ",
-			" ",
-			" "
-		);
+		$find = array("/\r|\n/u", "/\t/u", "/\s\s+/u");
+		$replace = array(" ", " ", " ");
 		$str = preg_replace($find, $replace, $str);
 
 		if (JString::strlen($str) > $limit)
@@ -341,6 +325,40 @@ class K2HelperUtilities
 		}
 		return $params;
 
+	}
+
+	public static function cleanTags($string, $allowed_tags)
+	{
+		$allowed_htmltags = array();
+		foreach ($allowed_tags as $tag)
+		{
+			$allowed_htmltags[] .= "<".$tag.">";
+		}
+		$allowed_htmltags = implode("", $allowed_htmltags);
+		$string = strip_tags($string, $allowed_htmltags);
+		return $string;
+	}
+
+	// Clean HTML Tag Attributes
+	// e.g. cleanupAttributes($string,"img,hr,h1,h2,h3,h4","style,width,height,hspace,vspace,border,class,id");
+	public static function cleanAttributes($string, $tag_array, $attr_array)
+	{
+		$attr = implode("|", $attr_array);
+		foreach ($tag_array as $tag)
+		{
+			preg_match_all("#<($tag) .+?>#", $string, $matches, PREG_PATTERN_ORDER);
+			foreach ($matches[0] as $match)
+			{
+				preg_match_all('/('.$attr.')=([\\"\\\']).+?([\\"\\\'])/', $match, $matchesAttr, PREG_PATTERN_ORDER);
+				foreach ($matchesAttr[0] as $attrToClean)
+				{
+					$string = str_replace($attrToClean, '', $string);
+					$string = preg_replace('|  +|', ' ', $string);
+					$string = str_replace(' >', '>', $string);
+				}
+			}
+		}
+		return $string;
 	}
 
 } // End Class

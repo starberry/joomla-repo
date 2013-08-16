@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: default.php 1991 2013-07-04 14:59:52Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -22,6 +22,9 @@ $document->addScriptDeclaration("
 		}
 		else if (\$K2.trim(\$K2('#name').val()) == '') {
 			alert( '".JText::_('K2_NAME_CANNOT_BE_EMPTY', true)."' );
+		}
+		else if (\$K2('#type').val() == '0') {
+			alert( '".JText::_('K2_PLEASE_SELECT_THE_TYPE_OF_THE_EXTRA_FIELD', true)."' );
 		}
 		else {
 			submitform( pressbutton );

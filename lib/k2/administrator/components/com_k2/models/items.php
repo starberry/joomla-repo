@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: items.php 1952 2013-04-01 11:25:31Z lefteris.kavadas $
+ * @version		$Id: items.php 1976 2013-05-15 10:22:34Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -1108,6 +1108,18 @@ class K2ModelItems extends K2Model
 		jimport('joomla.utilities.xmlelement');
 		$mainframe = JFactory::getApplication();
 		$db = JFactory::getDBO();
+		
+		$query = "SELECT COUNT(*) FROM #__k2_categories";
+		$db->setQuery($query);
+		$result = $db->loadResult();
+		if ($result)
+		{
+			$preserveCategoryIDs = false;
+		}
+		else
+		{
+			$preserveCategoryIDs = true;
+		}
 
 		$query = "SELECT COUNT(*) FROM #__k2_items";
 		$db->setQuery($query);
@@ -1180,7 +1192,7 @@ class K2ModelItems extends K2Model
 			$K2Category->language = $category->language;
 			$K2Category->params = $categoryParams;
 			$K2Category->check();
-			if ($preserveItemIDs)
+			if ($preserveCategoryIDs)
 			{
 				$K2Category->id = $category->id;
 				$db->insertObject('#__k2_categories', $K2Category);

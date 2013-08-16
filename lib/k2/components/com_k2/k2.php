@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: k2.php 1920 2013-02-11 19:07:41Z joomlaworks $
+ * @version		$Id: k2.php 1978 2013-05-15 19:34:16Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -69,5 +69,5 @@ else
 
 if (JRequest::getCmd('format') != 'json')
 {
-    echo "\n<!-- JoomlaWorks \"K2\" (v2.6.6) | Learn more about K2 at http://getk2.org -->\n\n";
+    echo "\n<!-- JoomlaWorks \"K2\" (v2.6.7) | Learn more about K2 at http://getk2.org -->\n\n";
 }

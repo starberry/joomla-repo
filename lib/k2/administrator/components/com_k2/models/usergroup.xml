@@ -26,6 +26,10 @@
 			<option value="0">K2_NO</option>
 			<option value="1">K2_YES</option>
 		</param>
+		<param name="editPublished" type="radio" default="0" label="K2_ALLOW_EDITING_OF_ALREADY_PUBLISHED_ITEMS" description="">
+			<option value="0">K2_NO</option>
+			<option value="1">K2_YES</option>
+		</param>
 	</params>
 	<fields name="params">
 		<fieldset name="user-permissions" addfieldpath="/administrator/components/com_k2/elements">
@@ -50,6 +54,10 @@
 				<option value="1">K2_YES</option>
 			</field>
 			<field name="publish" type="radio" default="0" label="K2_PUBLISH_ITEMS" description="K2_PERMISSION_TO_PUBLISH_NEW_OR_EDITED_ITEMS">
+				<option value="0">K2_NO</option>
+				<option value="1">K2_YES</option>
+			</field>
+			<field name="editPublished" type="radio" default="0" label="K2_ALLOW_EDITING_OF_ALREADY_PUBLISHED_ITEMS" description="">
 				<option value="0">K2_NO</option>
 				<option value="1">K2_YES</option>
 			</field>

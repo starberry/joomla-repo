@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: html.php 1926 2013-02-11 20:23:15Z joomlaworks $
+ * @version		$Id: html.php 2002 2013-07-08 15:43:14Z joomlaworks $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -81,7 +81,7 @@ class K2HelperHTML
 			{
 				if ($handling == 'remote')
 				{
-					$document->addScript('//ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js');
+					$document->addScript('//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js');
 				}
 				else if ($handling == 'local')
 				{
@@ -91,8 +91,11 @@ class K2HelperHTML
 				{
 					if ($handling && JString::strpos($handling, 'remote') !== false)
 					{
-
-						$document->addScript('//ajax.googleapis.com/ajax/libs/jquery/'.JString::str_ireplace('remote', '', $handling).'/jquery.min.js');
+						if ($handling == '1.9remote')
+						{
+							$handling = '1remote';
+						}
+						$document->addScript('//ajax.googleapis.com/ajax/libs/jquery/'.str_replace('remote', '', $handling).'/jquery.min.js');
 					}
 					else if ($handling && JString::strpos($handling, 'remote') === false)
 					{
@@ -121,7 +124,7 @@ class K2HelperHTML
 
 			if ($mediaManager)
 			{
-				$document->addScript(JURI::root(true).'/media/k2/assets/js/elfinder.min.js?v=2.6.6');
+				$document->addScript(JURI::root(true).'/media/k2/assets/js/elfinder.min.js?v=2.6.7');
 			}
 		}
 	}

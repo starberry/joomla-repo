@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: view.html.php 1934 2013-02-21 16:55:16Z lefteris.kavadas $
+ * @version		$Id: view.html.php 1965 2013-04-29 16:01:44Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -132,6 +132,8 @@ class K2ViewExtraField extends K2View
 		"'.JText::_('K2_RESET_VALUE', true).'",
 		"'.JText::_('K2_CALENDAR', true).'",
 		"'.JText::_('K2_PLEASE_SELECT_A_FIELD_TYPE_FROM_THE_LIST_ABOVE', true).'",
+		"'.JText::_('K2_COLUMNS', true).'",
+		"'.JText::_('K2_ROWS', true).'",
 		];');
 		JHTML::_('behavior.modal');
 		parent::display($tpl);

@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: default.php 1812 2013-01-14 18:45:06Z lefteris.kavadas $
+ * @version		$Id: default.php 1971 2013-05-01 16:04:17Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -38,14 +38,21 @@ $document->addScriptDeclaration("
     </thead>
     <tfoot>
       <tr>
-        <td colspan="5"><?php echo $this->page->getListFooter(); ?></td>
+        <td colspan="5">
+        	<?php if(K2_JVERSION == '30'): ?>
+			<div class="k2LimitBox">
+				<?php echo $this->page->getLimitBox(); ?>
+			</div>
+			<?php endif; ?>
+        	<?php echo $this->page->getListFooter(); ?>
+        </td>
       </tr>
     </tfoot>
     <tbody>
       <?php foreach ($this->rows as $key => $row): ?>
       <tr class="row<?php echo ($key%2); ?>">
         <td class="k2Center center hidden-phone"><?php echo $key+1; ?></td>
-        <td class="k2Center center"><?php $row->checked_out = 0; echo JHTML::_('grid.checkedout', $row, $key ); ?></td>
+        <td class="k2Center center"><?php $row->checked_out = 0; echo @JHTML::_('grid.checkedout', $row, $key ); ?></td>
         <td><a href="<?php echo JRoute::_('index.php?option=com_k2&view=usergroup&cid='.$row->id); ?>"><?php echo $row->name; ?></a></td>
         <td class="k2Center center hidden-phone"><?php echo $row->numOfUsers; ?></td>
         <td class="k2Center center hidden-phone"><?php echo $row->id; ?></td>

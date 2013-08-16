@@ -2,11 +2,11 @@
 <install type="component" version="1.5" method="upgrade">
 	<name>K2</name>
 	<author>JoomlaWorks</author>
-	<creationDate>April 7th, 2013</creationDate>
+	<creationDate>July 8th, 2013</creationDate>
 	<copyright>Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.</copyright>
 	<authorEmail>please-use-the-contact-form@joomlaworks.net</authorEmail>
 	<authorUrl>www.joomlaworks.net</authorUrl>
-	<version>2.6.6</version>
+	<version>2.6.7</version>
 	<license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
 	<description>Thank you for installing K2 by JoomlaWorks, the powerful content extension for Joomla!</description>
 	<installfile>install.k2.php</installfile>
@@ -197,7 +197,7 @@
 		<!-- ######################### Social Settings ######################### -->
 		<param name="socialButtonCode" default="" />
 		<param name="twitterUsername" default="" />
-		<param name="facebookImage" default="1" />
+		<param name="facebookImage" default="Medium" />
 		<!-- ######################### Comments ######################### -->
 		<param name="comments" default="1" />
 		<param name="commentsOrdering" default="DESC" />
@@ -209,6 +209,7 @@
 		<param name="inlineCommentsModeration" default="0" />
 		<param name="gravatar" default="1" />
 		<param name="recaptcha" default="0" />
+		<param name="recaptchaForRegistered" default="1" />
 		<param name="commentsFormNotes" default="1" />
 		<param name="commentsFormNotesText" default="" />
 		<!-- ######################### Frontend Editing ######################### -->

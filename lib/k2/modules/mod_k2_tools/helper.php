@@ -1,6 +1,6 @@
 <?php
 /**
- * @version		$Id: helper.php 1899 2013-02-08 18:57:03Z lefteris.kavadas $
+ * @version		$Id: helper.php 1998 2013-07-08 11:18:43Z lefteris.kavadas $
  * @package		K2
  * @author		JoomlaWorks http://www.joomlaworks.net
  * @copyright	Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -317,6 +317,11 @@ class modK2ToolsHelper
 
 		$db->setQuery($query);
 		$IDs = K2_JVERSION == '30' ? $db->loadColumn() : $db->loadResultArray();
+
+		if (!is_array($IDs) || !count($IDs))
+		{
+			return array();
+		}
 
 		$query = "SELECT tag.name, tag.id
         FROM #__k2_tags as tag

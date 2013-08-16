@@ -1,6 +1,6 @@
 <?php
 /**
- * @version     $Id: header.php 1920 2013-02-11 19:07:41Z joomlaworks $
+ * @version     $Id: header.php 1978 2013-05-15 19:34:16Z joomlaworks $
  * @package     K2
  * @author      JoomlaWorks http://www.joomlaworks.net
  * @copyright   Copyright (c) 2006 - 2013 JoomlaWorks Ltd. All rights reserved.
@@ -17,7 +17,7 @@ class K2ElementHeader extends K2Element
     {
 
         $document = JFactory::getDocument();
-        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.modules.css?v=2.6.6');
+        $document->addStyleSheet(JURI::root(true).'/media/k2/assets/css/k2.modules.css?v=2.6.7');
         if (K2_JVERSION == '15')
         {
             return '<div class="paramHeaderContainer15"><div class="paramHeaderContent">'.JText::_($value).'</div><div class="k2clr"></div></div>';
