@@ -1,0 +1,25 @@
+User-agent: *
+Disallow: /administrator/
+Disallow: /cache/
+Disallow: /cli/
+Disallow: /components/
+Disallow: /images/
+Disallow: /includes/
+Disallow: /installation/
+Disallow: /language/
+Disallow: /libraries/
+Disallow: /logs/
+Disallow: /media/
+Disallow: /modules/
+Disallow: /plugins/
+Disallow: /templates/
+Disallow: /tmp/
+
+User-Agent: AhrefsBot 
+Crawl-Delay: 10
+
+User-agent: bingbot
+Crawl-delay: 3
+
+User-agent: 008
+Disallow: /
