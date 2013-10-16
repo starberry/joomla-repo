@@ -3,15 +3,9 @@ joomla-repo
 
 Base copy of Joomla with "standard" extras, eg. K2
 
-This repo is constructed by layering releases of Joomla on a single main branch
-and plumbing a K2 install into the Joomla httpdocs using symlinks.
-
-This was attempted with multiple branches, git-subtree and other methods, but it
-just got too complicated. As a result, this is now a simple monotonic branch
-along to Joomla 2.5.11, then the latest 2.5.x to date (June 27, 2013), then
-a switch over to monotonic releases of 3.0.x then 3.1.x to date.
-
-As a result, rebasing to a newer Joomla should be more straightforward.
+This was originally set up using tags on a monotonic master branch. However, it's
+now converted so each version of Joomla is a separate branch. This allows
+tweaks to the standard config.
 
 ## Build a new site
 
@@ -23,17 +17,23 @@ As a result, rebasing to a newer Joomla should be more straightforward.
 mkdir newsite && cd newsite
 git init
 
+# Alternatively, you can start with a fresh vhost, but you might need to
+# handle a few merge conflicts.
+
 # We want to pull the joomla-repo onto this new project
 git remote add joomla-repo git://github.com/starberry/joomla-repo.git
 
 # Fetch all references, including Joomla version tags
 git fetch --all
 
-# Need to initialise the repo's HEAD with a single dummy commit. This can be removed later
+# Need to initialise the repo's HEAD with a single dummy commit. This can be removed later.
+# Alternatively, you could commit the vhost's config files.
 touch dummy; git add dummy; git commit -m'Dummy commit' dummy
 
 # Merge the desired version of Joomla onto this new repo
-git pull joomla-repo tags/j3.1.1
+git pull joomla-repo/j3.1.1
+
+# Set up the GitHub repo in GitHub and set the permissions.
 
 # Add the GitHub repo as the origin
 git remote add origin git://github.com/starberry/newsite.git
