@@ -1,7 +1,7 @@
 joomla-repo
 ===========
 
-Base copy of Joomla with "standard" extras, eg. K2
+Base copy of Joomla, moved into httpdocs/; and with good gitignore for Starberry projects.
 
 This was originally set up using tags on a monotonic master branch. However, it's
 now converted so each version of Joomla is a separate branch. This allows
@@ -31,7 +31,7 @@ git fetch --all
 touch dummy; git add dummy; git commit -m'Dummy commit' dummy
 
 # Merge the desired version of Joomla onto this new repo
-git pull joomla-repo/j3.1.1
+git merge joomla-repo/j3.3.0
 
 # Set up the GitHub repo in GitHub and set the permissions.
 
@@ -41,5 +41,28 @@ git remote set-url --push origin https://github.com/starberry/newsite
 
 # And push the combined Joomla and fresh repo to the new project
 git push -u origin master
+```
+
+## Importing a new version of Joomla
+
+```
+# Check out starberry/joomla-repo into a tmp folder
+git clone git://github.com/starberry/joomla-repo.git jr
+cd jr
+
+# Start a new branch for this Joomla version
+git checkout -b j3.3.0
+
+# Copy the new version of Joomla into httpdocs
+
+# Correct permissions; update links; add humans.txt and robots-*.txt
+
+# Commit
+
+# Add the GitHub repo as the origin
+git remote set-url --push origin https://github.com/starberry/joomla-repo.git
+
+# And push the new build
+git push -u origin j3.3.0
 ```
 
