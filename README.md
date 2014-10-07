@@ -43,8 +43,8 @@ git remote set-url --push origin https://github.com/starberry/newsite
 git push -u origin master
 ```
 
-## Importing a new version of Joomla (when the Joomla project releases
-## a new version, eg. v. 3.3.0 in this example)
+## Importing a new version of Joomla
+(when the Joomla project releases a new version, eg. v. 3.3.0 in this example)
 
 ```
 # Check out starberry/joomla-repo into a tmp folder
